@@ -3,6 +3,7 @@ import argparse
 import os
 import re
 import pandas as pd
+from pandas.io.json import json_normalize
 
 padrao_array = re.compile("(.*)\[(.*)\](?:\{(.*)\})?")
 
@@ -70,28 +71,42 @@ def planificar_processo(processo, campos):
     '''
     Transforma documento do processo em tabela de duas dimensões
     '''
-    campos_recuperados = []
+    campos_recuperados = {}
 
     for caminho in campos:
         
         processo_plano = {}
         valor_campo = recuperar_campo(processo, caminho, 0)
-        campos_recuperados.append(valor_campo)
-
-
-    js = {
-        "processo": [campos_recuperados]
-    }
+        campos_recuperados[".".join(caminho)] = valor_campo
 
     with open("/tmp/processo.json", "w") as f:
-        json.dump(js, f)
+        json.dump(campos_recuperados, f)
 
-    tabela = pd.read_json("/tmp/processo.json")
+    #tabela = pd.read_json("/tmp/processo.json")
 
-    tabela.head()
+    converter_para_tabela(campos_recuperados)
 
-    print(campos_recuperados)
 
+def converter_para_tabela(campos_recuperados):
+    df1 = json_normalize({"processo": campos_recuperados})
+
+    variaveis_para_explodir = [
+#        "dadosBasicos.polo[polo='AT'].parte[]{pessoa.nome,pessoa.numeroDocumentoPrincipal,pessoa.tipoPessoa}",
+        "movimento[]{movimentoNacional.codigoNacional,dataHora,orgaoJulgador.codigoOrgao,orgaoJulgador.nomeOrgao,orgaoJulgador.codigoMunicipioIBGE}"
+    ]
+
+    for variavel in variaveis_para_explodir:
+        elemento = None
+        if type(campos_recuperados[variavel]) == type([]):
+            elemento = campos_recuperados[variavel]
+        else:
+            elemento = campos_recuperados[variavel]
+
+        df = json_normalize(elemento)
+        print(df)
+        
+
+    print(df1)
 
 def carregar_json_processos(arquivo_json):
     '''
