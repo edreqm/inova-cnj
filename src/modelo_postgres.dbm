@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,360" last-zoom="1" max-obj-count="4"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="tb_processo" layer="0" collapse-mode="2" max-obj-count="30">
+	<schema name="public"/>
+	<comment><![CDATA[Indicador de assunto principal]]></comment>
+	<position x="640" y="300"/>
+	<column name="nr_processo">
+		<type name="varchar" length="50"/>
+		<comment><![CDATA[Numero do processo
+dadosBasicos/numero]]></comment>
+	</column>
+	<column name="dt_ajuizamento">
+		<type name="daterange" length="0"/>
+		<comment><![CDATA[Data de ajuizamento do processo
+dadosBasicos/dataAjuizamento]]></comment>
+	</column>
+	<column name="nr_classe_processual">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Numero da classe processual
+dadosBasicos/classeProcessual]]></comment>
+	</column>
+	<column name="cd_orgao">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do orgao
+dadosBasicos/orgaoJulgador/codigoOrgao]]></comment>
+	</column>
+	<column name="nm_orgao">
+		<type name="varchar" length="100"/>
+		<comment><![CDATA[Nome do orgao julgados
+dadosBasicos/orgaoJulgador/nomeOrgao]]></comment>
+	</column>
+	<column name="cd_municipio_ibge">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do municipio do orgao julgador
+dadosBasicos/orgaoJulgador/codigoMunicipioIBGE]]></comment>
+	</column>
+	<column name="ds_grau_orgao">
+		<type name="varchar" length="5"/>
+		<comment><![CDATA[Grau do orgao julgador
+dadosBasicos/grau]]></comment>
+	</column>
+	<column name="sg_tribunal">
+		<type name="varchar" length="10"/>
+		<comment><![CDATA[Sigla do tribunal
+dadosBasicos/siglaTribunal]]></comment>
+	</column>
+	<column name="vl_causa">
+		<type name="numeric" length="0"/>
+		<comment><![CDATA[Valor da causa
+dadosBasicos/valorCausa]]></comment>
+	</column>
+	<column name="tp_polo">
+		<type name="varchar" length="2"/>
+		<comment><![CDATA[Tipo do polo
+dadosBasicos/polo/@polo]]></comment>
+	</column>
+	<column name="nm_pessoa">
+		<type name="varchar" length="200"/>
+		<comment><![CDATA[dadosBasicos/polo/parte/pessoa/nome]]></comment>
+	</column>
+	<column name="nr_doc_principal_pessoa">
+		<type name="varchar" length="30"/>
+		<comment><![CDATA[dadosBasicos/polo/parte/numeroDocumentoPrincipal]]></comment>
+	</column>
+	<column name="nm_advogado">
+		<type name="varchar" length="200"/>
+		<comment><![CDATA[Nome do advogado
+dadosBasicos/polo/parte/advogado/nome]]></comment>
+	</column>
+	<column name="nr_inscricao_advogado">
+		<type name="varchar" length="10"/>
+		<comment><![CDATA[Numero OAB dos advogados
+dadosBasicos/polo/parte/advogado/inscricao]]></comment>
+	</column>
+	<column name="tp_representante">
+		<type name="varchar" length="3"/>
+		<comment><![CDATA[Tipo de representante da parte
+dadosBasicos/polo/parte/advogado/tipoRepesentante]]></comment>
+	</column>
+	<column name="cd_nacional_assunto">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo nacional do assunto
+movimento/(iésimo)/movimentoNacional/codigoNacional]]></comment>
+	</column>
+	<column name="cd_assunto_principal">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Indica se assunto e principal ou nao
+assunto/(iésimo)/principal]]></comment>
+	</column>
+	<column name="cd_movimento_nacional">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do movimento nacional.]]></comment>
+	</column>
+	<column name="dt_lancamento_movimento">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Data do lancamento do movimento
+movimento/(iésimo)/dataHora]]></comment>
+	</column>
+	<column name="cd_orgao_movimento">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do orgao do movimento
+movimento/(iésimo)/orgaoJulgador/codigoOrgao]]></comment>
+	</column>
+	<column name="nm_orgao_movimento">
+		<type name="varchar" length="200"/>
+		<comment><![CDATA[Nome do orgao do movimento
+movimento/(iésimo)/orgaoJulgador/nomeOrgao]]></comment>
+	</column>
+	<column name="cd_municipio_orgao_movimento">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do municipio do orgao do movimento
+movimento/(iésimo)/orgaoJulgador/codigoMunicipioIBGE]]></comment>
+	</column>
+	<column name="cd_complemento_movimento_nacional">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do complemento do movimento nacional
+movimento/(iésimo)/complementoNacional/codComplemento]]></comment>
+	</column>
+	<column name="ds_complemento_movimento_nacional">
+		<type name="varchar" length="100"/>
+		<comment><![CDATA[Descricao do complemento do movimento nacional
+movimento/(iésimo)/complementoNacional/descricaoComplemento]]></comment>
+	</column>
+	<column name="cd_complemento_movimento_nacional_tabelado">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Codigo do complemento do movimento nacional tabelado
+movimento/(iésimo)/complementoNacional/codComplementoTabelado]]></comment>
+	</column>
+</table>
+
+</dbmodel>
