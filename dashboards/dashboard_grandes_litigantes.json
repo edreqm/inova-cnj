@@ -1,0 +1,696 @@
+{
+    "dashboards": [
+        {
+            "__Dashboard__": {
+                "css": "",
+                "dashboard_title": "An\u00e1lise dos grandes litigantes",
+                "description": null,
+                "json_metadata": "{\"timed_refresh_immune_slices\": [], \"expanded_slices\": {}, \"refresh_frequency\": 0, \"default_filters\": \"{}\", \"color_scheme\": null, \"remote_id\": 7}",
+                "position_json": "{\"CHART-AqE5xZv0vR\":{\"children\":[],\"id\":\"CHART-AqE5xZv0vR\",\"meta\":{\"chartId\":82,\"height\":55,\"sliceName\":\"Grandes litigantes sem filtros\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-pJRVQjaxBg\"],\"type\":\"CHART\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"GRID_ID\":{\"children\":[\"TABS-1Ec6zJ93vD\",\"ROW-pJRVQjaxBg\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"An\\u00e1lise dos grandes litigantes\"},\"type\":\"HEADER\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-pJRVQjaxBg\":{\"children\":[\"CHART-AqE5xZv0vR\"],\"id\":\"ROW-pJRVQjaxBg\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"TAB-YRitWaBX6a\":{\"children\":[],\"id\":\"TAB-YRitWaBX6a\",\"meta\":{\"text\":\"Grandes litigantes\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"TABS-1Ec6zJ93vD\"],\"type\":\"TAB\"},\"TABS-1Ec6zJ93vD\":{\"children\":[\"TAB-YRitWaBX6a\"],\"id\":\"TABS-1Ec6zJ93vD\",\"meta\":{},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"TABS\"}}",
+                "slices": [
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "public.tb_processo",
+                            "datasource_type": "table",
+                            "id": 82,
+                            "params": "{\"adhoc_filters\": [], \"color_scheme\": \"supersetColors\", \"datasource\": \"13__table\", \"granularity_sqla\": \"dt_ajuizamento\", \"groupby\": [\"nr_doc_principal_pessoa\", \"nm_pessoa\"], \"innerRadius\": 40, \"label_colors\": {}, \"labels_outside\": true, \"metric\": \"count\", \"number_format\": \"SMART_NUMBER\", \"outerRadius\": 80, \"pie_label_type\": \"key\", \"queryFields\": {\"groupby\": \"groupby\", \"metric\": \"metrics\"}, \"row_limit\": 10, \"show_labels\": true, \"show_legend\": true, \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"pie\", \"remote_id\": 82, \"datasource_name\": \"tb_processo\", \"schema\": \"public\", \"database_name\": \"Inova CNJ\"}",
+                            "slice_name": "Grandes litigantes sem filtros",
+                            "viz_type": "pie"
+                        }
+                    }
+                ],
+                "slug": null
+            }
+        }
+    ],
+    "datasources": [
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "index",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 434,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nr_processo",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 435,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "dt_ajuizamento",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 436,
+                            "is_active": true,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TIMESTAMP WITHOUT TIME ZONE",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nr_classe_processual",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 437,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_orgao",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 438,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nm_orgao",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 439,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_municipio_ibge",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 440,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "ds_grau_orgao",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 441,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "sg_tribunal",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 442,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "vl_causa",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 443,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "DOUBLE PRECISION",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "tp_polo",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 444,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nm_pessoa",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 445,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nr_doc_principal_pessoa",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 446,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nm_advogado",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 447,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nr_inscricao_advogado",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 448,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "tp_representante",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 449,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_nacional_assunto",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 450,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_assunto_principal",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 451,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BOOLEAN",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_movimento_nacional",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 452,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "dt_lancamento_movimento",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 453,
+                            "is_active": true,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TIMESTAMP WITHOUT TIME ZONE",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_orgao_movimento",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 454,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "nm_orgao_movimento",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 455,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_municipio_orgao_movimento",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 456,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_complemento_movimento_nacional",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 457,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "ds_complemento_movimento_nacional",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 458,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "TEXT",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "column_name": "cd_complemento_movimento_nacional_tabelado",
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 459,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 13,
+                            "type": "BIGINT",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "dt_ajuizamento",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 1,
+                            "changed_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "created_by_fk": 1,
+                            "created_on": {
+                                "__datetime__": "2020-10-13T17:29:38"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": null,
+                            "id": 21,
+                            "metric_name": "count",
+                            "metric_type": "count",
+                            "table_id": 13,
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 13, \"database_name\": \"Inova CNJ\"}",
+                "schema": "public",
+                "sql": "select distinct *\r\nfrom\r\n(\r\nselect nr_processo, nr_doc_principal_pessoa, nm_pessoa\r\nfrom tb_processo\r\nwhere ds_grau_orgao = 'G1'\r\nand tp_polo = 'PA'\r\nunion all\r\nselect nr_processo, nr_doc_principal_pessoa, nm_pessoa\r\nfrom tb_processo\r\nwhere ds_grau_orgao = 'G2'\r\nand tp_polo = 'PA'\r\nand nr_processo like '%0000'\r\nunion all\r\nselect nr_processo, nr_doc_principal_pessoa, nm_pessoa\r\nfrom tb_processo\r\nwhere ds_grau_orgao = 'G2'\r\nand tp_polo = 'AT'\r\nand nr_processo not like '%0000'\r\n) x",
+                "table_name": "tb_processo",
+                "template_params": null
+            }
+        }
+    ]
+}
