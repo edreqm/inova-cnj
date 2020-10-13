@@ -3,7 +3,7 @@
 `docker build . -t mineiros/superset:latest`
 ## Execução
 ```
-docker run -d -p 8080:8080 --name superset mineiros/superset
+docker run --net=host -d -p 8080:8080 --name superset mineiros/superset
 
 docker exec -it superset superset fab create-admin \
                --username admin \
