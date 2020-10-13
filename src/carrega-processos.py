@@ -1,179 +1,219 @@
-import json
-import argparse
-import os
-import re
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[52]:
+
+
 import pandas as pd
 from pandas.io.json import json_normalize
+import json
 
-padrao_array = re.compile("(.*)\[(.*)\](?:\{(.*)\})?")
-
-def recuperar_campo(elemento_processo, nome_campo, i):
-    array_predicado = padrao_array.match(nome_campo[i])
-    if array_predicado is None:
-        if i == len(nome_campo)-1:
-            return elemento_processo.get(nome_campo[i])
-        else:
-            val_elemento_tmp = elemento_processo.get(nome_campo[i])
-            if val_elemento_tmp is not None:
-                return recuperar_campo(elemento_processo[nome_campo[i]], nome_campo, i+1)
-            else:
-                return None
-    else:
-        nome_campo_array = array_predicado.group(1)
-        predicado = array_predicado.group(2)
-        campos_grupo = array_predicado.group(3)
-        itens = elemento_processo[nome_campo_array]
-        campo_predicado = None
-        valor_esperado_campo_predicado = None
-        if predicado != "":
-            predicado = predicado.split("=")
-            campo_predicado = predicado[0]
-            valor_esperado_campo_predicado = predicado[1].replace("'","")
-
-        valores = []
-
-        # Faz loop no array de elementos do processo
-        for index, item in enumerate(itens):
-
-            valores_grupo = "#$%"
-
-            if campos_grupo is not None:
-                campos_item_grupo = campos_grupo.split(",")
-                campos_item_grupo = [x.split(".") for x in campos_item_grupo]
-                
-                # Busca cada um dos campos para agrupar os valores
-                valores_grupo = {}
-                for campo_item_grupo in campos_item_grupo:
-                    val = "#$%"
-                    if campo_predicado is not None:
-                        valor_campo = item[campo_predicado]
-                        if valor_campo == valor_esperado_campo_predicado:
-                            val = recuperar_campo(item, campo_item_grupo, 0)
-                    else:
-                        val = recuperar_campo(item, campo_item_grupo, 0)
-                    
-                    if val != "#$%":
-                        valores_grupo[".".join(campo_item_grupo)] = val
-            else:
-                if campo_predicado is not None:
-                    valor_campo = item[campo_predicado]
-                    if valor_campo == valor_esperado_campo_predicado:
-                        valores_grupo = recuperar_campo(item, nome_campo, i+1)
-                else:
-                    valores_grupo = recuperar_campo(item, nome_campo, i+1)
-            
-            if valores_grupo != "#$%":
-                valores.append(valores_grupo)
-
-        return valores
-
-def planificar_processo(processo, campos):
-    '''
-    Transforma documento do processo em tabela de duas dimensões
-    '''
-    campos_recuperados = {}
-
-    for caminho in campos:
-        
-        processo_plano = {}
-        valor_campo = recuperar_campo(processo, caminho, 0)
-        campos_recuperados[".".join(caminho)] = valor_campo
-
-    with open("/tmp/processo.json", "w") as f:
-        json.dump(campos_recuperados, f)
-
-    #tabela = pd.read_json("/tmp/processo.json")
-
-    converter_para_tabela(campos_recuperados)
+with open(r'/home/lemos/trt3/Inova/teste/trt3-exemplo.json') as f:
+    d = json.load(f)
 
 
-def converter_para_tabela(campos_recuperados):
-    df1 = json_normalize({"processo": campos_recuperados})
-
-    variaveis_para_explodir = [
-#        "dadosBasicos.polo[polo='AT'].parte[]{pessoa.nome,pessoa.numeroDocumentoPrincipal,pessoa.tipoPessoa}",
-        "movimento[]{movimentoNacional.codigoNacional,dataHora,orgaoJulgador.codigoOrgao,orgaoJulgador.nomeOrgao,orgaoJulgador.codigoMunicipioIBGE}"
-    ]
-
-    for variavel in variaveis_para_explodir:
-        elemento = None
-        if type(campos_recuperados[variavel]) == type([]):
-            elemento = campos_recuperados[variavel]
-        else:
-            elemento = campos_recuperados[variavel]
-
-        df = json_normalize(elemento)
-        print(df)
-        
-
-    print(df1)
-
-def carregar_json_processos(arquivo_json):
-    '''
-    Carrega um arquivo json com processos.
-    O deve estar no formato CNJ
-    '''
-    processos = None
-    with open(arquivo_json) as f:
-        processos = json.load(f)
-    return processos
-
-def planificar_todos(processos, campos, processador_processo):
-    '''
-    Dada uma lista de objetos carregados a partir do JSON, planifica cada um deles.
-    Para cada processo planificado, executa a função especificada no parâmetro processador_processo
-    '''
-    for processo in processos:
-        tabela_processo = planificar_processo(processo, campos)
-        if processador_processo is not None:
-            processador_processo(tabela_processo)
+# In[53]:
 
 
-campos = [
-        ["dadosBasicos", "numero"],
-        ["dadosBasicos","dataAjuizamento"],
-        ["dadosBasicos","classeProcessual"],
-        ["dadosBasicos","orgaoJulgador","codigoOrgao"],
-        ["dadosBasicos","orgaoJulgador","nomeOrgao"],
-        ["dadosBasicos","orgaoJulgador","codigoMunicipioIBGE"],
-        ["dadosBasicos","grau"],
-        ["dadosBasicos","siglaTribunal"],
-        ["dadosBasicos","valorCausa"],
-        ["dadosBasicos", "polo[polo='PA']", "parte[]{pessoa.nome,pessoa.numeroDocumentoPrincipal,pessoa.tipoPessoa}"],
-        ["dadosBasicos", "polo[polo='AT']", "parte[]{pessoa.nome,pessoa.numeroDocumentoPrincipal,pessoa.tipoPessoa}"],
-        ["dadosBasicos","valorCausa"],
-        ["dadosBasicos","assunto[]{codigoNacional,principal}"],
-        ["movimento[]{movimentoNacional.codigoNacional,dataHora,orgaoJulgador.codigoOrgao,orgaoJulgador.nomeOrgao,orgaoJulgador.codigoMunicipioIBGE}"]
-    ] 
+#df = pd.read_json (r'/home/lemos/trt3/Inova/justica_trabalho/processos-trt3/processos-trt3_5.json')
+#df.head()
 
 
-def run():
-
-    parser = argparse.ArgumentParser(description='Carrega processo JSON em base relacional')
-    parser.add_argument('-pasta_dados', dest='pasta_dados', type=str, required=True,
-                    help='Pasta onde estão os arquivos JSON')
-
-    #parser.add_argument('-campos', dest='campos', type=str, required=True,
-    #                help='Campos que serão buscados no processo')
-
-    # Carrega cada um dos arquivos
-    args = parser.parse_args()
-
-    pasta_dados = args.pasta_dados
-
-    arquivos = os.listdir(pasta_dados)
-
-    #campos = args.campos.split(",")
-
-    for aqr_json in arquivos:
-        caminho_arquivo = pasta_dados + "/" + aqr_json
-        processos = carregar_json_processos(caminho_arquivo)
-        processos = processos["processos"]
-        planificar_todos(processos, campos, None)
+# In[54]:
 
 
+df = json_normalize(d,record_path= 'processos')
+df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
+df.rename({'dpj_identificadorProcesso':'processos.dpj_identificadorProcesso'}, axis=1,inplace=True)
+df.columns
 
 
-    pass
+# In[55]:
 
-run()
+
+colunas = ['processos.dpj_identificadorProcesso',
+           'grau',
+           'siglaTribunal',
+           'dadosBasicos.valorCausa',
+           'dadosBasicos.numero',
+           'dadosBasicos.dataAjuizamento',
+           'dadosBasicos.classeProcessual',
+           'dadosBasicos.orgaoJulgador.codigoOrgao',
+           'dadosBasicos.orgaoJulgador.nomeOrgao',
+           'dadosBasicos.orgaoJulgador.codigoMunicipioIBGE']
+df = df[colunas]
+df.head()
+
+
+# In[56]:
+
+
+caminho_registro = ['processos','dadosBasicos','polo','parte','advogado']
+meta_info = [['processos','dpj_identificadorProcesso'],
+             ['processos','dadosBasicos','polo','polo'],
+             ['processos','dadosBasicos','polo','parte','pessoa','nome'],
+             ['processos','dadosBasicos','polo','parte','pessoa','numeroDocumentoPrincipal']
+            ]
+
+df_advogado = json_normalize(d,record_path =caminho_registro,record_prefix='advogado.',meta=meta_info,max_level=2)
+#df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
+df_advogado.head()
+
+
+# In[57]:
+
+
+df = df.merge(df_advogado,on='processos.dpj_identificadorProcesso')
+df.head()
+
+
+# In[58]:
+
+
+df.count()
+
+
+# In[59]:
+
+
+caminho_registro = ['processos','movimento']
+meta_info = [['processos','dpj_identificadorProcesso']
+            ]
+
+df_movimento = json_normalize(d,record_path =caminho_registro,record_prefix='processos.movimento.',meta=meta_info)
+colunas_movimento = ['processos.dpj_identificadorProcesso',
+                     'processos.movimento.movimentoNacional.codigoNacional',
+                     'processos.movimento.dataHora',
+                     'processos.movimento.orgaoJulgador.codigoOrgao',
+                     'processos.movimento.orgaoJulgador.nomeOrgao',
+                     'processos.movimento.orgaoJulgador.instancia',
+                     'processos.movimento.orgaoJulgador.codigoMunicipioIBGE',
+                     'processos.movimento.complementoNacional'
+                    ]
+#df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
+df_movimento = df_movimento[colunas_movimento]
+df_movimento.count()
+
+
+# In[60]:
+
+
+caminho_registro = ['processos','movimento','complementoNacional']
+meta_info = [['processos','dpj_identificadorProcesso'],
+             ['processos','movimento','dataHora'],
+             ['processos','movimento','movimentoNacional','codigoNacional'],
+             ['processos','movimento','orgaoJulgador','codigoOrgao'],
+             ['processos','movimento','orgaoJulgador','nomeOrgao'],
+             ['processos','movimento','orgaoJulgador','instancia'],
+             ['processos','movimento','orgaoJulgador','codigoMunicipioIBGE']
+            ]
+
+df_complemento = json_normalize(d,record_path =caminho_registro,record_prefix='complemento.',meta=meta_info)
+#colunas_movimento = ['processos.dpj_identificadorProcesso',
+#                     'movimento.movimentoNacional.codigoNacional',
+#                     'movimento.dataHora',
+#                     'movimento.orgaoJulgador.codigoOrgao',
+#                     'movimento.orgaoJulgador.nomeOrgao',
+#                     'movimento.orgaoJulgador.instancia',
+#                     'movimento.orgaoJulgador.codigoMunicipioIBGE',
+#                     'movimento.complementoNacional'
+#                    ]
+#df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
+#df_movimento = df_movimento[colunas_movimento]
+df_complemento.head()
+
+
+# In[61]:
+
+
+df_complemento.groupby(['processos.dpj_identificadorProcesso','processos.movimento.dataHora','complemento.codComplemento']).agg('min').head()
+
+
+# In[62]:
+
+
+df_complemento.count()
+
+
+# In[63]:
+
+
+df = df.merge(df_complemento,on='processos.dpj_identificadorProcesso')
+df.count()
+
+
+# In[64]:
+
+
+caminho_registro = ['processos','dadosBasicos','assunto']
+meta_info = [['processos','dpj_identificadorProcesso']
+            ]
+
+df_assunto = json_normalize(d,record_path =caminho_registro,record_prefix='assunto.',meta=meta_info)
+colunas_assunto = ['processos.dpj_identificadorProcesso',
+                   'assunto.codigoNacional',
+                   'assunto.principal'
+                    ]
+#df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
+df_assunto = df_assunto[colunas_assunto]
+df_assunto.count()
+
+
+# In[65]:
+
+
+df = df.merge(df_assunto,on='processos.dpj_identificadorProcesso')
+df.count()
+
+
+# In[66]:
+
+
+df.dtypes
+
+
+# In[67]:
+
+
+# escrever no postgres
+
+from sqlalchemy import create_engine
+engine = create_engine('postgresql://postgres:postgres@localhost:5432/Inova')
+
+df_banco = pd.DataFrame()
+df_banco['nr_processo'] = df['processos.dpj_identificadorProcesso']
+df_banco['dt_ajuizamento'] = pd.to_datetime(df['dadosBasicos.dataAjuizamento'], format='%Y%m%d%H%M%S')
+df_banco['nr_classe_processual'] = df['dadosBasicos.classeProcessual']
+df_banco['cd_orgao'] = df['dadosBasicos.orgaoJulgador.codigoOrgao']
+df_banco['nm_orgao'] = df['dadosBasicos.orgaoJulgador.nomeOrgao']
+df_banco['cd_municipio_ibge'] = df['dadosBasicos.orgaoJulgador.codigoMunicipioIBGE']
+df_banco['ds_grau_orgao'] = df['grau']
+df_banco['sg_tribunal'] = df['siglaTribunal']
+df_banco['vl_causa'] = df['dadosBasicos.valorCausa']
+df_banco['tp_polo'] = df['processos.dadosBasicos.polo.polo']
+df_banco['nm_pessoa'] = df['processos.dadosBasicos.polo.parte.pessoa.nome']
+df_banco['nr_doc_principal_pessoa'] = df['processos.dadosBasicos.polo.parte.pessoa.numeroDocumentoPrincipal']
+df_banco['nm_advogado'] = df['advogado.nome']
+df_banco['nr_inscricao_advogado'] = df['advogado.inscricao']
+df_banco['tp_representante'] = df['advogado.tipoRepresentante']
+df_banco['cd_nacional_assunto'] = df['assunto.codigoNacional']
+df_banco['cd_assunto_principal'] = df['assunto.principal']
+df_banco['cd_movimento_nacional'] = df['processos.movimento.movimentoNacional.codigoNacional']
+df_banco['dt_lancamento_movimento'] = pd.to_datetime(df['processos.movimento.dataHora'], format='%Y%m%d%H%M%S')
+df_banco['cd_orgao_movimento'] = df['processos.movimento.orgaoJulgador.codigoOrgao']
+df_banco['nm_orgao_movimento'] = df['processos.movimento.orgaoJulgador.nomeOrgao']
+df_banco['cd_municipio_orgao_movimento'] = df['processos.movimento.orgaoJulgador.codigoMunicipioIBGE']
+df_banco['cd_complemento_movimento_nacional'] = df['complemento.codComplemento']
+df_banco['ds_complemento_movimento_nacional'] = df['complemento.descricaoComplemento']
+df_banco['cd_complemento_movimento_nacional_tabelado'] = df['complemento.codComplementoTabelado']
+
+#df_banco.head()
+
+df_banco.to_sql('tb_processo', engine)
+
+
+# In[68]:
+
+
+df_banco.count()
+

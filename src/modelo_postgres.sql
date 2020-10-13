@@ -13,9 +13,19 @@
 -- -- ddl-end --
 -- 
 
--- object: public.tb_processo | type: TABLE --
--- DROP TABLE IF EXISTS public.tb_processo CASCADE;
-CREATE TABLE public.tb_processo (
+-- object: inovacnj | type: SCHEMA --
+-- DROP SCHEMA IF EXISTS inovacnj CASCADE;
+CREATE SCHEMA inovacnj;
+-- ddl-end --
+-- ALTER SCHEMA inovacnj OWNER TO postgres;
+-- ddl-end --
+
+SET search_path TO pg_catalog,public,inovacnj;
+-- ddl-end --
+
+-- object: inovacnj.tb_processo | type: TABLE --
+-- DROP TABLE IF EXISTS inovacnj.tb_processo CASCADE;
+CREATE TABLE inovacnj.tb_processo (
 	nr_processo varchar(50),
 	dt_ajuizamento daterange,
 	nr_classe_processual integer,
@@ -40,60 +50,69 @@ CREATE TABLE public.tb_processo (
 	cd_municipio_orgao_movimento integer,
 	cd_complemento_movimento_nacional integer,
 	ds_complemento_movimento_nacional varchar(100),
-	cd_complemento_movimento_nacional_tabelado integer
+	cd_complemento_movimento_nacional_tabelado integer,
+	sq_pessoa smallint,
+	sql_advogado smallint,
+	sq_movimento smallint
 );
 -- ddl-end --
-COMMENT ON TABLE public.tb_processo IS E'Indicador de assunto principal';
+COMMENT ON TABLE inovacnj.tb_processo IS E'Indicador de assunto principal';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nr_processo IS E'Numero do processo\ndadosBasicos/numero';
+COMMENT ON COLUMN inovacnj.tb_processo.nr_processo IS E'Numero do processo\ndadosBasicos/numero';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.dt_ajuizamento IS E'Data de ajuizamento do processo\ndadosBasicos/dataAjuizamento';
+COMMENT ON COLUMN inovacnj.tb_processo.dt_ajuizamento IS E'Data de ajuizamento do processo\ndadosBasicos/dataAjuizamento';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nr_classe_processual IS E'Numero da classe processual\ndadosBasicos/classeProcessual';
+COMMENT ON COLUMN inovacnj.tb_processo.nr_classe_processual IS E'Numero da classe processual\ndadosBasicos/classeProcessual';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_orgao IS E'Codigo do orgao\ndadosBasicos/orgaoJulgador/codigoOrgao';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_orgao IS E'Codigo do orgao\ndadosBasicos/orgaoJulgador/codigoOrgao';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nm_orgao IS E'Nome do orgao julgados\ndadosBasicos/orgaoJulgador/nomeOrgao';
+COMMENT ON COLUMN inovacnj.tb_processo.nm_orgao IS E'Nome do orgao julgados\ndadosBasicos/orgaoJulgador/nomeOrgao';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_municipio_ibge IS E'Codigo do municipio do orgao julgador\ndadosBasicos/orgaoJulgador/codigoMunicipioIBGE';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_municipio_ibge IS E'Codigo do municipio do orgao julgador\ndadosBasicos/orgaoJulgador/codigoMunicipioIBGE';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.ds_grau_orgao IS E'Grau do orgao julgador\ndadosBasicos/grau';
+COMMENT ON COLUMN inovacnj.tb_processo.ds_grau_orgao IS E'Grau do orgao julgador\ndadosBasicos/grau';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.sg_tribunal IS E'Sigla do tribunal\ndadosBasicos/siglaTribunal';
+COMMENT ON COLUMN inovacnj.tb_processo.sg_tribunal IS E'Sigla do tribunal\ndadosBasicos/siglaTribunal';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.vl_causa IS E'Valor da causa\ndadosBasicos/valorCausa';
+COMMENT ON COLUMN inovacnj.tb_processo.vl_causa IS E'Valor da causa\ndadosBasicos/valorCausa';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.tp_polo IS E'Tipo do polo\ndadosBasicos/polo/@polo';
+COMMENT ON COLUMN inovacnj.tb_processo.tp_polo IS E'Tipo do polo\ndadosBasicos/polo/@polo';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nm_pessoa IS E'dadosBasicos/polo/parte/pessoa/nome';
+COMMENT ON COLUMN inovacnj.tb_processo.nm_pessoa IS E'dadosBasicos/polo/parte/pessoa/nome';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nr_doc_principal_pessoa IS E'dadosBasicos/polo/parte/numeroDocumentoPrincipal';
+COMMENT ON COLUMN inovacnj.tb_processo.nr_doc_principal_pessoa IS E'dadosBasicos/polo/parte/numeroDocumentoPrincipal';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nm_advogado IS E'Nome do advogado\ndadosBasicos/polo/parte/advogado/nome';
+COMMENT ON COLUMN inovacnj.tb_processo.nm_advogado IS E'Nome do advogado\ndadosBasicos/polo/parte/advogado/nome';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nr_inscricao_advogado IS E'Numero OAB dos advogados\ndadosBasicos/polo/parte/advogado/inscricao';
+COMMENT ON COLUMN inovacnj.tb_processo.nr_inscricao_advogado IS E'Numero OAB dos advogados\ndadosBasicos/polo/parte/advogado/inscricao';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.tp_representante IS E'Tipo de representante da parte\ndadosBasicos/polo/parte/advogado/tipoRepesentante';
+COMMENT ON COLUMN inovacnj.tb_processo.tp_representante IS E'Tipo de representante da parte\ndadosBasicos/polo/parte/advogado/tipoRepesentante';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_nacional_assunto IS E'Codigo nacional do assunto\nmovimento/(iésimo)/movimentoNacional/codigoNacional';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_nacional_assunto IS E'Codigo nacional do assunto\nmovimento/(iésimo)/movimentoNacional/codigoNacional';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_assunto_principal IS E'Indica se assunto e principal ou nao\nassunto/(iésimo)/principal';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_assunto_principal IS E'Indica se assunto e principal ou nao\nassunto/(iésimo)/principal';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_movimento_nacional IS E'Codigo do movimento nacional.';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_movimento_nacional IS E'Codigo do movimento nacional.';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.dt_lancamento_movimento IS E'Data do lancamento do movimento\nmovimento/(iésimo)/dataHora';
+COMMENT ON COLUMN inovacnj.tb_processo.dt_lancamento_movimento IS E'Data do lancamento do movimento\nmovimento/(iésimo)/dataHora';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_orgao_movimento IS E'Codigo do orgao do movimento\nmovimento/(iésimo)/orgaoJulgador/codigoOrgao';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_orgao_movimento IS E'Codigo do orgao do movimento\nmovimento/(iésimo)/orgaoJulgador/codigoOrgao';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.nm_orgao_movimento IS E'Nome do orgao do movimento\nmovimento/(iésimo)/orgaoJulgador/nomeOrgao';
+COMMENT ON COLUMN inovacnj.tb_processo.nm_orgao_movimento IS E'Nome do orgao do movimento\nmovimento/(iésimo)/orgaoJulgador/nomeOrgao';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_municipio_orgao_movimento IS E'Codigo do municipio do orgao do movimento\nmovimento/(iésimo)/orgaoJulgador/codigoMunicipioIBGE';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_municipio_orgao_movimento IS E'Codigo do municipio do orgao do movimento\nmovimento/(iésimo)/orgaoJulgador/codigoMunicipioIBGE';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_complemento_movimento_nacional IS E'Codigo do complemento do movimento nacional\nmovimento/(iésimo)/complementoNacional/codComplemento';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_complemento_movimento_nacional IS E'Codigo do complemento do movimento nacional\nmovimento/(iésimo)/complementoNacional/codComplemento';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.ds_complemento_movimento_nacional IS E'Descricao do complemento do movimento nacional\nmovimento/(iésimo)/complementoNacional/descricaoComplemento';
+COMMENT ON COLUMN inovacnj.tb_processo.ds_complemento_movimento_nacional IS E'Descricao do complemento do movimento nacional\nmovimento/(iésimo)/complementoNacional/descricaoComplemento';
 -- ddl-end --
-COMMENT ON COLUMN public.tb_processo.cd_complemento_movimento_nacional_tabelado IS E'Codigo do complemento do movimento nacional tabelado\nmovimento/(iésimo)/complementoNacional/codComplementoTabelado';
+COMMENT ON COLUMN inovacnj.tb_processo.cd_complemento_movimento_nacional_tabelado IS E'Codigo do complemento do movimento nacional tabelado\nmovimento/(iésimo)/complementoNacional/codComplementoTabelado';
+-- ddl-end --
+COMMENT ON COLUMN inovacnj.tb_processo.sq_pessoa IS E'Numero sequencial da pessoa no processo';
+-- ddl-end --
+COMMENT ON COLUMN inovacnj.tb_processo.sql_advogado IS E'Ordem do advogado no processo';
+-- ddl-end --
+COMMENT ON COLUMN inovacnj.tb_processo.sq_movimento IS E'Ordem do movimento no processo';
 -- ddl-end --
 
 
