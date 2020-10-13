@@ -5,8 +5,8 @@
                 "css": "",
                 "dashboard_title": "An\u00e1lise dos grandes litigantes",
                 "description": null,
-                "json_metadata": "{\"timed_refresh_immune_slices\": [], \"expanded_slices\": {}, \"refresh_frequency\": 0, \"default_filters\": \"{}\", \"color_scheme\": null, \"remote_id\": 7}",
-                "position_json": "{\"CHART-AqE5xZv0vR\":{\"children\":[],\"id\":\"CHART-AqE5xZv0vR\",\"meta\":{\"chartId\":82,\"height\":55,\"sliceName\":\"Grandes litigantes sem filtros\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-pJRVQjaxBg\"],\"type\":\"CHART\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"GRID_ID\":{\"children\":[\"TABS-1Ec6zJ93vD\",\"ROW-pJRVQjaxBg\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"An\\u00e1lise dos grandes litigantes\"},\"type\":\"HEADER\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-pJRVQjaxBg\":{\"children\":[\"CHART-AqE5xZv0vR\"],\"id\":\"ROW-pJRVQjaxBg\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"TAB-YRitWaBX6a\":{\"children\":[],\"id\":\"TAB-YRitWaBX6a\",\"meta\":{\"text\":\"Grandes litigantes\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"TABS-1Ec6zJ93vD\"],\"type\":\"TAB\"},\"TABS-1Ec6zJ93vD\":{\"children\":[\"TAB-YRitWaBX6a\"],\"id\":\"TABS-1Ec6zJ93vD\",\"meta\":{},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"TABS\"}}",
+                "json_metadata": "{\"timed_refresh_immune_slices\": [], \"expanded_slices\": {}, \"refresh_frequency\": 0, \"default_filters\": \"{}\", \"color_scheme\": null, \"filter_scopes\": {\"84\": {\"nm_orgao\": {\"scope\": [\"ROOT_ID\"], \"immune\": []}, \"cd_municipio_ibge\": {\"scope\": [\"ROOT_ID\"], \"immune\": []}}}, \"remote_id\": 7}",
+                "position_json": "{\"CHART-AqE5xZv0vR\":{\"children\":[],\"id\":\"CHART-AqE5xZv0vR\",\"meta\":{\"chartId\":82,\"height\":55,\"sliceName\":\"Grandes litigantes sem filtros\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-rx-PzQuEG\"],\"type\":\"CHART\"},\"CHART-E5Y6i9sjqV\":{\"children\":[],\"id\":\"CHART-E5Y6i9sjqV\",\"meta\":{\"chartId\":83,\"height\":47,\"sliceName\":\"Gr\\u00e1fico 2\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-pJRVQjaxBg\"],\"type\":\"CHART\"},\"CHART-psIKc_uNAk\":{\"children\":[],\"id\":\"CHART-psIKc_uNAk\",\"meta\":{\"chartId\":84,\"height\":25,\"sliceName\":\"Filtros\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-pJRVQjaxBg\"],\"type\":\"CHART\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"GRID_ID\":{\"children\":[\"TABS-1Ec6zJ93vD\",\"ROW-pJRVQjaxBg\",\"ROW-rx-PzQuEG\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"An\\u00e1lise dos grandes litigantes\"},\"type\":\"HEADER\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-pJRVQjaxBg\":{\"children\":[\"CHART-E5Y6i9sjqV\",\"CHART-psIKc_uNAk\"],\"id\":\"ROW-pJRVQjaxBg\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-rx-PzQuEG\":{\"children\":[\"CHART-AqE5xZv0vR\"],\"id\":\"ROW-rx-PzQuEG\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"TAB-YRitWaBX6a\":{\"children\":[],\"id\":\"TAB-YRitWaBX6a\",\"meta\":{\"text\":\"Grandes litigantes\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"TABS-1Ec6zJ93vD\"],\"type\":\"TAB\"},\"TABS-1Ec6zJ93vD\":{\"children\":[\"TAB-YRitWaBX6a\"],\"id\":\"TABS-1Ec6zJ93vD\",\"meta\":{},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"TABS\"}}",
                 "slices": [
                     {
                         "__Slice__": {
@@ -17,6 +17,28 @@
                             "params": "{\"adhoc_filters\": [], \"color_scheme\": \"supersetColors\", \"datasource\": \"13__table\", \"granularity_sqla\": \"dt_ajuizamento\", \"groupby\": [\"nr_doc_principal_pessoa\", \"nm_pessoa\"], \"innerRadius\": 40, \"label_colors\": {}, \"labels_outside\": true, \"metric\": \"count\", \"number_format\": \"SMART_NUMBER\", \"outerRadius\": 80, \"pie_label_type\": \"key\", \"queryFields\": {\"groupby\": \"groupby\", \"metric\": \"metrics\"}, \"row_limit\": 10, \"show_labels\": true, \"show_legend\": true, \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"pie\", \"remote_id\": 82, \"datasource_name\": \"tb_processo\", \"schema\": \"public\", \"database_name\": \"Inova CNJ\"}",
                             "slice_name": "Grandes litigantes sem filtros",
                             "viz_type": "pie"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "public.tb_processo",
+                            "datasource_type": "table",
+                            "id": 83,
+                            "params": "{\"adhoc_filters\": [], \"all_columns\": [], \"color_pn\": true, \"datasource\": \"13__table\", \"granularity_sqla\": \"dt_ajuizamento\", \"groupby\": [\"nr_doc_principal_pessoa\"], \"metrics\": [{\"aggregate\": \"COUNT_DISTINCT\", \"column\": {\"column_name\": \"nr_processo\", \"description\": null, \"expression\": null, \"filterable\": true, \"groupby\": true, \"id\": 435, \"is_dttm\": false, \"optionName\": \"_col_nr_processo\", \"python_date_format\": null, \"type\": \"TEXT\", \"verbose_name\": null}, \"expressionType\": \"SIMPLE\", \"hasCustomLabel\": false, \"isNew\": false, \"label\": \"COUNT_DISTINCT(nr_processo)\", \"optionName\": \"metric_hc8dgcqxhs_xayhgbwfs3\", \"sqlExpression\": null}], \"order_by_cols\": [], \"order_desc\": true, \"percent_metrics\": [], \"queryFields\": {\"groupby\": \"groupby\", \"metrics\": \"metrics\"}, \"query_mode\": \"aggregate\", \"row_limit\": 10, \"show_cell_bars\": true, \"slice_id\": 83, \"table_timestamp_format\": \"smart_date\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"table\", \"remote_id\": 83, \"datasource_name\": \"tb_processo\", \"schema\": \"public\", \"database_name\": \"Inova CNJ\"}",
+                            "slice_name": "Gr\u00e1fico 2",
+                            "viz_type": "table"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "public.tb_processo",
+                            "datasource_type": "table",
+                            "id": 84,
+                            "params": "{\"adhoc_filters\": [], \"datasource\": \"13__table\", \"date_filter\": false, \"filter_configs\": [{\"asc\": true, \"clearable\": true, \"column\": \"nm_orgao\", \"key\": \"MOfpfKb3A\", \"label\": \"\\u00d3rg\\u00e3o julgador\", \"multiple\": true, \"searchAllOptions\": false}, {\"asc\": true, \"clearable\": true, \"column\": \"cd_municipio_ibge\", \"key\": \"aArjtnVB1\", \"label\": \"Munic\\u00edpio do \\u00f3rg\\u00e3o julgador\", \"multiple\": true, \"searchAllOptions\": false}], \"granularity_sqla\": \"dt_ajuizamento\", \"queryFields\": {}, \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"filter_box\", \"remote_id\": 84, \"datasource_name\": \"tb_processo\", \"schema\": \"public\", \"database_name\": \"Inova CNJ\"}",
+                            "slice_name": "Filtros",
+                            "viz_type": "filter_box"
                         }
                     }
                 ],
@@ -687,7 +709,7 @@
                 "offset": 0,
                 "params": "{\"remote_id\": 13, \"database_name\": \"Inova CNJ\"}",
                 "schema": "public",
-                "sql": "select distinct *\r\nfrom\r\n(\r\nselect nr_processo, nr_doc_principal_pessoa, nm_pessoa\r\nfrom tb_processo\r\nwhere ds_grau_orgao = 'G1'\r\nand tp_polo = 'PA'\r\nunion all\r\nselect nr_processo, nr_doc_principal_pessoa, nm_pessoa\r\nfrom tb_processo\r\nwhere ds_grau_orgao = 'G2'\r\nand tp_polo = 'PA'\r\nand nr_processo like '%0000'\r\nunion all\r\nselect nr_processo, nr_doc_principal_pessoa, nm_pessoa\r\nfrom tb_processo\r\nwhere ds_grau_orgao = 'G2'\r\nand tp_polo = 'AT'\r\nand nr_processo not like '%0000'\r\n) x",
+                "sql": "-- Separar processos ativos dos arquivados definitivamente\r\nselect \r\n\tsubstring(nr_processo from 13 for 20) nr_processo, \r\n\tnr_doc_principal_pessoa, \r\n\tnm_pessoa, \r\n\tcd_orgao, \r\n\tnm_orgao, \r\n\tcd_municipio_ibge, \r\n\tsg_tribunal\r\nfrom tb_processo\r\ngroup by \r\n\tsubstring(nr_processo from 13 for 20), \r\n\tnr_doc_principal_pessoa, \r\n\tnm_pessoa, \r\n\tcd_orgao, \r\n\tnm_orgao, \r\n\tcd_municipio_ibge, \r\n\tsg_tribunal",
                 "table_name": "tb_processo",
                 "template_params": null
             }
