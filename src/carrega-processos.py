@@ -9,6 +9,11 @@ from pandas.io.json import json_normalize
 import json
 from sqlalchemy import create_engine
 import os
+
+import operator as op
+import functools as fct  # reduce is in functools in python 3+
+def listagg(L):
+    return fct.reduce(op.concat, L)
 #from pyhive import hive
 
 
@@ -21,7 +26,7 @@ import os
 
 # In[54]:
 
-def normaliza_processos(d):
+def normaliza_processos(d, engine, apagar_banco):
     df = json_normalize(d,record_path= 'processos')
     df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
     df.rename({'dpj_identificadorProcesso':'processos.dpj_identificadorProcesso'}, axis=1,inplace=True)
@@ -38,6 +43,25 @@ def normaliza_processos(d):
             'dadosBasicos.orgaoJulgador.nomeOrgao',
             'dadosBasicos.orgaoJulgador.codigoMunicipioIBGE']
     df = df[colunas]
+    
+    df_processo = pd.DataFrame()
+    df_processo['nr_processo'] = df['processos.dpj_identificadorProcesso']
+    df_processo['dt_ajuizamento'] = pd.to_datetime(df['dadosBasicos.dataAjuizamento'], format='%Y%m%d%H%M%S')
+    df_processo['nr_classe_processual'] = df['dadosBasicos.classeProcessual']
+    df_processo['cd_orgao'] = df['dadosBasicos.orgaoJulgador.codigoOrgao']
+    df_processo['nm_orgao'] = df['dadosBasicos.orgaoJulgador.nomeOrgao']
+    df_processo['cd_municipio_ibge'] = df['dadosBasicos.orgaoJulgador.codigoMunicipioIBGE']
+    df_processo['ds_grau_orgao'] = df['grau']
+    df_processo['sg_tribunal'] = df['siglaTribunal']
+    df_processo['vl_causa'] = df['dadosBasicos.valorCausa']
+
+    tipo_operacao_banco = "append"
+
+    if apagar_banco:
+        tipo_operacao_banco = "replace"
+
+    df.to_sql(name='tb_processo', con=engine, if_exists=tipo_operacao_banco)
+
     df.head()
 
 
@@ -52,6 +76,17 @@ def normaliza_processos(d):
     #df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
     df_advogado.head()
 
+    df_processo_parte = pd.DataFrame()
+    df_processo_parte['nr_processo'] = df_advogado['processos.dpj_identificadorProcesso']
+    df_processo_parte['tp_polo'] = df_advogado['processos.dadosBasicos.polo.polo']
+    df_processo_parte['nm_pessoa'] = df_advogado['processos.dadosBasicos.polo.parte.pessoa.nome']
+    df_processo_parte['nr_doc_principal_pessoa'] = df_advogado['processos.dadosBasicos.polo.parte.pessoa.numeroDocumentoPrincipal']
+    df_processo_parte['nm_advogado'] = df_advogado['advogado.nome']
+    df_processo_parte['nr_inscricao_advogado'] = df_advogado['advogado.inscricao']
+    df_processo_parte['tp_representante'] = df_advogado['advogado.tipoRepresentante']
+
+    df_processo_parte.to_sql(name='tb_processo_parte', con=engine, if_exists=tipo_operacao_banco)
+
 
     df = df.merge(df_advogado,on='processos.dpj_identificadorProcesso')
     df.head()
@@ -59,27 +94,9 @@ def normaliza_processos(d):
 
     df.count()
 
-    caminho_registro = ['processos','movimento']
-    meta_info = [['processos','dpj_identificadorProcesso']
-                ]
-
-    df_movimento = json_normalize(d,record_path =caminho_registro,record_prefix='processos.movimento.',meta=meta_info)
-    colunas_movimento = ['processos.dpj_identificadorProcesso',
-                        'processos.movimento.movimentoNacional.codigoNacional',
-                        'processos.movimento.dataHora',
-                        'processos.movimento.orgaoJulgador.codigoOrgao',
-                        'processos.movimento.orgaoJulgador.nomeOrgao',
-                        'processos.movimento.orgaoJulgador.instancia',
-                        'processos.movimento.orgaoJulgador.codigoMunicipioIBGE',
-                        'processos.movimento.complementoNacional'
-                        ]
-    #df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
-    df_movimento = df_movimento[colunas_movimento]
-    df_movimento.count()
-
-
     caminho_registro = ['processos','movimento','complementoNacional']
     meta_info = [['processos','dpj_identificadorProcesso'],
+                ['processos','movimento','identificadorMovimento'],
                 ['processos','movimento','dataHora'],
                 ['processos','movimento','movimentoNacional','codigoNacional'],
                 ['processos','movimento','orgaoJulgador','codigoOrgao'],
@@ -101,9 +118,22 @@ def normaliza_processos(d):
     #df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
     #df_movimento = df_movimento[colunas_movimento]
     df_complemento.head()
+    print(df_complemento.head(10))                
 
+    grupo = ['processos.dpj_identificadorProcesso',
+                'processos.movimento.identificadorMovimento',
+                'processos.movimento.dataHora',
+                'processos.movimento.movimentoNacional.codigoNacional',
+                'processos.movimento.orgaoJulgador.codigoOrgao',
+                'processos.movimento.orgaoJulgador.nomeOrgao',
+                'processos.movimento.orgaoJulgador.instancia',
+                'processos.movimento.orgaoJulgador.codigoMunicipioIBGE']
 
-    df_complemento.groupby(['processos.dpj_identificadorProcesso','processos.movimento.dataHora','complemento.codComplemento']).agg('min').head()
+    df_complemento = df_complemento.groupby(grupo)['complemento.descricaoComplemento'].apply(listagg)
+
+    print(df_complemento.head(10))                
+
+    #df_complemento.groupby(['processos.dpj_identificadorProcesso','processos.movimento.dataHora','complemento.codComplemento']).agg('min').head()
 
 
     df_complemento.count()
@@ -173,8 +203,10 @@ def carrega_base_processos(df, engine, apagar_banco):
 # In[69]:
 def run():
     #pasta_processos = "/home/lemos/trt3/Inova/teste/"
-    pasta_processos = "/dados/inova-cnj/dados/"
-    url_banco = 'postgresql://postgres:postgres@localhost:5432/Inova'
+    pasta_processos = "/home/rmpossa/selocnj/exemplosjson"
+
+    #pasta_processos = "/dados/inova-cnj/dados/"
+    url_banco = 'postgresql://postgres:postgres@localhost:5432/inova'
 
 
     #engine = hive.Connection(host="", port=PORT, username="YOU")
@@ -186,11 +218,14 @@ def run():
         print("Carreando ", nome_arq)
         with open(nome_arq) as f:
             d = json.load(f)
-            tabela_processos = normaliza_processos(d)
-            apagar_banco = False
+
+            apagar_banco = True
             if index == 0:
                 apagar_banco = True
-            carrega_base_processos(tabela_processos, engine, apagar_banco=apagar_banco)
+
+            tabela_processos = normaliza_processos(d, engine, apagar_banco)
+            
+           # carrega_base_processos(tabela_processos, engine, apagar_banco=apagar_banco)
             print("Terminou...")
     print("Carga finalizada!")
 
