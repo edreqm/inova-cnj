@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 # coding: utf-8
 
 # In[52]:
@@ -172,8 +172,8 @@ def carrega_base_processos(df, engine, apagar_banco):
 
 # In[69]:
 def run():
-    #pasta_processos = "/home/lemos/trt3/Inova/teste/"
-    pasta_processos = "/dados/inova-cnj/dados/"
+    pasta_processos = "/home/lemos/trt3/Inova/teste/"
+    #pasta_processos = "/dados/inova-cnj/dados/"
     url_banco = 'postgresql://postgres:postgres@localhost:5432/Inova'
 
 
@@ -183,7 +183,7 @@ def run():
 
     for index, arq_processo in enumerate(os.listdir(pasta_processos)):
         nome_arq = pasta_processos + "/" + arq_processo
-        print("Carreando ", nome_arq)
+        print("Carregando ", nome_arq)
         with open(nome_arq) as f:
             d = json.load(f)
             tabela_processos = normaliza_processos(d)
