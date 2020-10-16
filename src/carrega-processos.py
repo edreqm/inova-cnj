@@ -177,7 +177,7 @@ def carrega_base_processos(df, engine, apagar_banco):
 # In[69]:
 def run():
     #pasta_processos = "/home/lemos/trt3/Inova/teste/"
-    url_banco = 'postgresql://postgres:postgres@localhost:5432/inova'
+    url_banco = 'postgresql://minerador_processos:<senha>@10.3.192.85:5448/dw_dev'
 
 
     #engine = hive.Connection(host="", port=PORT, username="YOU")
