@@ -12,6 +12,8 @@ const CubejsHandlerError = require('./CubejsHandlerError');
 const SubscriptionServer = require('./SubscriptionServer');
 const LocalSubscriptionStore = require('./LocalSubscriptionStore');
 
+const fs = require('fs'); 
+
 const QUERY_TYPE = {
   REGULAR_QUERY: 'regularQuery',
   COMPARE_DATE_RANGE_QUERY: 'compareDateRangeQuery',
@@ -559,6 +561,26 @@ class ApiGateway {
     }
   }
 
+  saveToTmpFile(data) {
+    let tmpFile = "/tmp/processos.csv";
+    if (data.length > 0) {
+      record0 = data[0];
+      keys = record0.keys();
+
+      let streamOptions = {flags: 'w', encoding: 'utf8'};
+      let writeStream = fs.createWriteStream(tmpFile, streamOptions);
+
+      let header = keys.join(",");
+      writeStream.write(header + "\n");
+
+      data.forEach(d => {
+        let row = d.values().join(";");
+        writeStream.write(row + "\n");
+      });
+      writeStream.close()
+    }
+  }
+
   async load({ query, context, res, ...props }) {
     const requestStarted = new Date();
     
@@ -643,6 +665,8 @@ class ApiGateway {
         throw new UserError(`'${queryType}' query type is not supported by the client. Please update the client.`);
       }
      
+      //this.saveToTmpFile(results[0].data);
+
 console.log(results[0].data);
 
       if (props.queryType === 'multi') {
