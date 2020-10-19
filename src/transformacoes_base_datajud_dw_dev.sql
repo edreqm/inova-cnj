@@ -73,6 +73,8 @@ where substr(nr_doc_principal_pessoa, 1, 8) in (
 );
 */
 
+-- índices
+create index idx_processo_1 on minerador_processos.tb_proc_maiores_litigantes.
 -- tabela de partes de processo de ML
 create table minerador_processos.tb_proc_parte_ml (
 	nr_processo varchar(20),
@@ -179,6 +181,17 @@ set ds_movimento = (
 	from minerador_processos."tb_cod_movimentos_CNJ" 
 	where codigo::text = cd_movimento_nacional) where 1 = 1;
 
+-- Índices 
+create index idx_processo_1 on minerador_processos.tb_processo (nr_processo);
+create index idx_processo_2 on minerador_processos.tb_processo (dt_lancamento_movimento);
+create index idx_processo_3 on minerador_processos.tb_processo (cd_movimento_nacional);
+create index idx_processo_4 on minerador_processos.tb_processo (cd_complemento_movimento_nacional);
+create index idx_processo_5 on minerador_processos.tb_processo (cd_complemento_movimento_nacional_tabelado);
+create index idx_proc_movimentos_ml_1 on minerador_processos.tb_proc_movimentos_ml(nr_chave_proc);
+create index idx_proc_movimentos_ml_2 on minerador_processos.tb_proc_movimentos_ml(dt_lancamento_movimento);
+create index idx_proc_movimentos_ml_3 on minerador_processos.tb_proc_movimentos_ml(cd_movimento_nacional);
+
+
 update minerador_processos.tb_proc_movimentos_ml  mml
 set 
 	ds_movimento_complementos = ds_movimento || coalesce(
@@ -229,34 +242,31 @@ AS
 	ultmo_mov.dt_arquivamento - proc_ml.dt_ajuizamento as dias_duracao_processo
    FROM minerador_processos.tb_proc_movimentos_ml mov_ml
      JOIN minerador_processos.tb_proc_maiores_litigantes proc_ml ON mov_ml.nr_chave_proc::text = proc_ml.nr_chave_proc::text
-     JOIN minerador_processos.tb_proc_parte_ml parte_ml ON mov_ml.nr_chave_proc::text = parte_ml.nr_chave_proc::text,
+     JOIN minerador_processos.tb_proc_parte_ml parte_ml ON mov_ml.nr_chave_proc::text = parte_ml.nr_chave_proc::text
 	 JOIN (
 		 select 
 		 	nr_chave_proc,
-		 	last(dt_lancamento_movimento) as dt_arquivamento
+		 	max(dt_lancamento_movimento) as dt_arquivamento
 		 from 
 		 	minerador_processos.tb_proc_movimentos_ml
 		 group by
 		 	nr_chave_proc
-		 order by dt_lancamento_movimento
 	 ) ultmo_mov on mov_ml.nr_chave_proc = ultmo_mov.nr_chave_proc
    where
 	 exists (
 		 select 1
-		 from minerador_processos.tb_proc_movimentos_ml mov_mov_ml2
+		 from minerador_processos.tb_proc_movimentos_ml mov_ml2
 		 where 
 		 mov_ml2.nr_chave_proc = mov_ml.nr_chave_proc
-		 mov_ml2.cd_movimento_nacional in (2
-		 	28,
-			218,
-			472,
-			473,
-			861,
-			48,
-			245,
-			246,
-			12430,
-			1013)
-	 )
-	order by 
-WITH DATA;
+		 and mov_ml2.cd_movimento_nacional in (
+			'228',
+			'218',
+			'472',
+			'473',
+			'861',
+			'48',
+			'245',
+			'246',
+			'12430',
+			'1013')
+	 );
