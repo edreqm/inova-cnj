@@ -1,0 +1,66 @@
+{
+  "_from": "@cubejs-backend/query-orchestrator@^0.21.1",
+  "_id": "@cubejs-backend/query-orchestrator@0.21.1",
+  "_inBundle": false,
+  "_integrity": "sha512-AXdjebPaUwtJpWzuQtHQPsLhoAFjlWLs8D0/gyd3kHrdukPzzNvVeD54lfNPZkwVgsW9UOhw8Y7G1r4CDwPU8g==",
+  "_location": "/@cubejs-backend/query-orchestrator",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@cubejs-backend/query-orchestrator@^0.21.1",
+    "name": "@cubejs-backend/query-orchestrator",
+    "escapedName": "@cubejs-backend%2fquery-orchestrator",
+    "scope": "@cubejs-backend",
+    "rawSpec": "^0.21.1",
+    "saveSpec": null,
+    "fetchSpec": "^0.21.1"
+  },
+  "_requiredBy": [
+    "/@cubejs-backend/server-core"
+  ],
+  "_resolved": "https://registry.npmjs.org/@cubejs-backend/query-orchestrator/-/query-orchestrator-0.21.1.tgz",
+  "_shasum": "0b4916d481b9c769a5aae16fa442a4c8584c5af9",
+  "_spec": "@cubejs-backend/query-orchestrator@^0.21.1",
+  "_where": "/hdd/projetos/inova-cnj/inova-cnj/cubejs/minerador-processos/node_modules/@cubejs-backend/server-core",
+  "author": {
+    "name": "Cube Dev, Inc."
+  },
+  "bugs": {
+    "url": "https://github.com/cube-js/cube.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "generic-pool": "^3.7.1",
+    "ramda": "^0.27.0",
+    "redis": "^3.0.2"
+  },
+  "deprecated": false,
+  "description": "Cube.js Query Orchestrator and Cache",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^5.2.1",
+    "jest": "^25.1.0"
+  },
+  "engines": {
+    "node": ">=8.11.1"
+  },
+  "gitHead": "57b85a848755d54a4544af5c60289eb3ffd61c9e",
+  "homepage": "https://github.com/cube-js/cube.js#readme",
+  "license": "Apache-2.0",
+  "name": "@cubejs-backend/query-orchestrator",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cube-js/cube.js.git",
+    "directory": "packages/cubejs-query-orchestrator"
+  },
+  "scripts": {
+    "integration": "jest --runInBand --verbose test/integration",
+    "lint": "eslint orchestrator/*.js driver/*.js",
+    "test": "npm run unit && npm run integration",
+    "unit": "jest --runInBand --verbose test/unit"
+  },
+  "version": "0.21.1"
+}

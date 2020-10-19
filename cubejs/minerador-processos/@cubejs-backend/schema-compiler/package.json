@@ -1,0 +1,97 @@
+{
+  "_from": "@cubejs-backend/schema-compiler@^0.21.1",
+  "_id": "@cubejs-backend/schema-compiler@0.21.1",
+  "_inBundle": false,
+  "_integrity": "sha512-PN5pUA1rzAy6cnkivWJ9uXgAiQ9weM666EQC6ams7cXDtB0PR94DeqcmQ3+t/0K+mNTaU8WsuPbPe912t37v1Q==",
+  "_location": "/@cubejs-backend/schema-compiler",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@cubejs-backend/schema-compiler@^0.21.1",
+    "name": "@cubejs-backend/schema-compiler",
+    "escapedName": "@cubejs-backend%2fschema-compiler",
+    "scope": "@cubejs-backend",
+    "rawSpec": "^0.21.1",
+    "saveSpec": null,
+    "fetchSpec": "^0.21.1"
+  },
+  "_requiredBy": [
+    "/@cubejs-backend/server-core"
+  ],
+  "_resolved": "https://registry.npmjs.org/@cubejs-backend/schema-compiler/-/schema-compiler-0.21.1.tgz",
+  "_shasum": "7601ccabe3aad2ebcece9bf44f930ee2a925416f",
+  "_spec": "@cubejs-backend/schema-compiler@^0.21.1",
+  "_where": "/hdd/projetos/inova-cnj/inova-cnj/cubejs/minerador-processos/node_modules/@cubejs-backend/server-core",
+  "author": {
+    "name": "Cube Dev, Inc."
+  },
+  "bugs": {
+    "url": "https://github.com/cube-js/cube.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@babel/generator": "^7.4.0",
+    "@babel/parser": "^7.4.2",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/standalone": "^7.3.4",
+    "@babel/traverse": "^7.4.0",
+    "@babel/types": "^7.4.0",
+    "@hapi/joi": "^15.1.1",
+    "antlr4": "^4.8.0",
+    "cron-parser": "^2.16.3",
+    "humps": "^2.0.1",
+    "inflection": "^1.12.0",
+    "lru-cache": "^5.1.1",
+    "moment-range": "^4.0.1",
+    "moment-timezone": "^0.5.28",
+    "node-dijkstra": "^2.5.0",
+    "ramda": "^0.27.0",
+    "syntax-error": "^1.3.0"
+  },
+  "deprecated": false,
+  "description": "Cube.js schema compiler",
+  "devDependencies": {
+    "@apla/clickhouse": "^1.5.5",
+    "@types/hapi__joi": "^17.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^5.2.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^8.0.1",
+    "mssql": "^6.1.0",
+    "mysql": "^2.18.1",
+    "nyc": "^15.0.0",
+    "pg-promise": "^10.5.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "should": "^11.2.1",
+    "sqlstring": "^2.3.1",
+    "testcontainers": "^2.4.0",
+    "uuid": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=8.11.1"
+  },
+  "gitHead": "57b85a848755d54a4544af5c60289eb3ffd61c9e",
+  "homepage": "https://github.com/cube-js/cube.js#readme",
+  "license": "Apache-2.0",
+  "name": "@cubejs-backend/schema-compiler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cube-js/cube.js.git",
+    "directory": "packages/cubejs-schema-compiler"
+  },
+  "scripts": {
+    "integration": "nyc --reporter=lcov mocha test/integration/*",
+    "integration:clickhouse": "nyc --reporter=lcov mocha test/integration/clickhouse",
+    "integration:mssql": "nyc --reporter=lcov mocha test/integration/mssql",
+    "integration:mysql": "nyc --reporter=lcov mocha test/integration/mysql",
+    "integration:postgres": "nyc --reporter=lcov mocha test/integration/postgres",
+    "lint": "eslint -c ../../.eslintrc.js adapter/*.js compiler/*.js extensions/*.js scaffolding/*.js parser/SqlParser.js test/*/*.js",
+    "test": "npm run unit && npm run integration",
+    "unit": "nyc --reporter=lcov mocha test/unit"
+  },
+  "version": "0.21.1"
+}

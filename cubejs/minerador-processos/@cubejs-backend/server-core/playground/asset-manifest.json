@@ -1,0 +1,21 @@
+{
+  "files": {
+    "babel~main.js": "./static/js/babel~main.dec1d0e6.chunk.js",
+    "main.css": "./static/css/main.8922d4ff.css",
+    "main.js": "./static/js/main.fa32859b.js",
+    "vendors~main.css": "./static/css/vendors~main.de4bdd86.chunk.css",
+    "vendors~main.js": "./static/js/vendors~main.bf565241.chunk.js",
+    "index.html": "./index.html",
+    "precache-manifest.da4bda43ef44961133ba5f7213f98fe3.js": "./precache-manifest.da4bda43ef44961133ba5f7213f98fe3.js",
+    "service-worker.js": "./service-worker.js",
+    "static/js/vendors~main.bf565241.chunk.js.LICENSE.txt": "./static/js/vendors~main.bf565241.chunk.js.LICENSE.txt",
+    "static/media/plus.afc9d76a.svg": "./static/media/plus.afc9d76a.svg"
+  },
+  "entrypoints": [
+    "static/js/babel~main.dec1d0e6.chunk.js",
+    "static/css/vendors~main.de4bdd86.chunk.css",
+    "static/js/vendors~main.bf565241.chunk.js",
+    "static/css/main.8922d4ff.css",
+    "static/js/main.fa32859b.js"
+  ]
+}

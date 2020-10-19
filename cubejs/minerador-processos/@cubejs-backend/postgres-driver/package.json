@@ -1,0 +1,66 @@
+{
+  "_from": "@cubejs-backend/postgres-driver",
+  "_id": "@cubejs-backend/postgres-driver@0.21.1",
+  "_inBundle": false,
+  "_integrity": "sha512-swqghHpqpLIOnxEPfiTkdLVttlgYbdpTM8bMqckhX3U8/ALlxvaECZGbLUOvxofFtiUIJNHTcsOSIfgg9L9Zeg==",
+  "_location": "/@cubejs-backend/postgres-driver",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@cubejs-backend/postgres-driver",
+    "name": "@cubejs-backend/postgres-driver",
+    "escapedName": "@cubejs-backend%2fpostgres-driver",
+    "scope": "@cubejs-backend",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@cubejs-backend/postgres-driver/-/postgres-driver-0.21.1.tgz",
+  "_shasum": "a9d9b19fc08d7d5a0f38e754a36ad837707140e1",
+  "_spec": "@cubejs-backend/postgres-driver",
+  "_where": "/hdd/projetos/inova-cnj/inova-cnj/cubejs/minerador-processos",
+  "author": {
+    "name": "Cube Dev, Inc."
+  },
+  "bugs": {
+    "url": "https://github.com/cube-js/cube.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@cubejs-backend/query-orchestrator": "^0.21.1",
+    "@types/pg": "^7.14.5",
+    "moment": "^2.24.0",
+    "pg": "^8.2.1"
+  },
+  "deprecated": false,
+  "description": "Cube.js Postgres database driver",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=8.11.1"
+  },
+  "gitHead": "57b85a848755d54a4544af5c60289eb3ffd61c9e",
+  "homepage": "https://github.com/cube-js/cube.js#readme",
+  "license": "Apache-2.0",
+  "main": "driver/PostgresDriver.js",
+  "name": "@cubejs-backend/postgres-driver",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cube-js/cube.js.git",
+    "directory": "packages/cubejs-postgres-driver"
+  },
+  "scripts": {
+    "lint": "eslint **/*.js"
+  },
+  "typings": "driver/index.d.ts",
+  "version": "0.21.1"
+}
