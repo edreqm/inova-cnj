@@ -1,16 +1,16 @@
-
+#!/usr/bin/env python3
 # coding: utf-8
 
 # In[52]:
 
-
+from io import StringIO
+import psycopg2
+import psycopg2.sql as sql
 import pandas as pd
 from pandas.io.json import json_normalize
 import json
 from sqlalchemy import create_engine
 import os
-#from pyhive import hive
-
 
 # In[53]:
 
@@ -48,7 +48,7 @@ def normaliza_processos(d):
                 ['processos','dadosBasicos','polo','parte','pessoa','numeroDocumentoPrincipal']
                 ]
 
-    df_advogado = json_normalize(d,record_path =caminho_registro,record_prefix='advogado.',meta=meta_info,max_level=2)
+    df_advogado = json_normalize(d,record_path =caminho_registro,record_prefix='advogado.',meta=meta_info,max_level=2, errors='ignore')
     #df = df.reindex(sorted(df.columns, reverse=False, key=len), axis=1)
     df_advogado.head()
 
@@ -88,6 +88,10 @@ def normaliza_processos(d):
                 ['processos','movimento','orgaoJulgador','codigoMunicipioIBGE']
                 ]
 
+    '''meta_info = [['processos','dpj_identificadorProcesso'],
+              ['processos','movimento','dataHora'],
+              ['processos','movimento','movimentoNacional','codigoNacional'],
+              ['processos','movimento','orgaoJulgador','codigoOrgao']]'''
     df_complemento = json_normalize(d,record_path =caminho_registro,record_prefix='complemento.',meta=meta_info)
     #colunas_movimento = ['processos.dpj_identificadorProcesso',
     #                     'movimento.movimentoNacional.codigoNacional',
@@ -172,26 +176,65 @@ def carrega_base_processos(df, engine, apagar_banco):
 
 # In[69]:
 def run():
-    pasta_processos = "/home/lemos/trt3/Inova/teste/"
-    #pasta_processos = "/dados/inova-cnj/dados/"
-    url_banco = 'postgresql://postgres:postgres@localhost:5432/Inova'
+    #pasta_processos = "/home/lemos/trt3/Inova/teste/"
+    url_banco = 'postgresql://minerador_processos:<senha>@10.3.192.85:5448/dw_dev'
 
 
     #engine = hive.Connection(host="", port=PORT, username="YOU")
 
     engine = create_engine(url_banco)
 
-    for index, arq_processo in enumerate(os.listdir(pasta_processos)):
-        nome_arq = pasta_processos + "/" + arq_processo
-        print("Carregando ", nome_arq)
-        with open(nome_arq) as f:
-            d = json.load(f)
-            tabela_processos = normaliza_processos(d)
-            apagar_banco = False
-            if index == 0:
-                apagar_banco = True
-            carrega_base_processos(tabela_processos, engine, apagar_banco=apagar_banco)
-            print("Terminou...")
+    con = psycopg2.connect(dbname="datajud_dev", user="datajud_user", password="<senha>", host="10.3.192.85", port="5448")
+    cur = con.cursor()    
+
+    # cada lote terá tamanho de 1000 processos
+    tamanho_lote = 1000
+    # 400 é a quantidade de lotes (400k processos no total, sendo carregados 1000 por vez)
+    quantidade_lotes = 400
+    
+    for i in range(0,quantidade_lotes): # 400 é a quantidade de lotes (400k processos no total, sendo carregados 1000 por vez)
+        
+        str_lote = str(i + 1)
+        print("Lote " + str_lote)
+
+        # os replaces é para corrigir algumas inconsistências encontradas no json armazenado no banco (p.ex. uso de \\, orgaoJulgador nulo)        
+        str_replace = "replace(replace(data::text, '\\\"', ''''), 'orgaoJulgador\": null','orgaoJulgador\": {\"instancia\": null, \"nomeOrgao\": null, \"codigoOrgao\": null, \"codigoMunicipioIBGE\": null}')"
+        
+        s =f"""select 
+              {str_replace} || ',' 
+           from 
+              datajud.tb_processo_datajud  
+           limit {tamanho_lote} offset {i*tamanho_lote}"""
+
+        sqlSTR = "COPY ({0}) TO STDOUT".format(s)
+
+        text_stream = StringIO()
+        cur.copy_expert(sqlSTR, text_stream)
+
+        # inclui a tag de lista de processos
+        json_str = '{"processos": [' + text_stream.getvalue()
+
+        size = len(json_str)
+        # apaga vírgula e quebra de linha no final
+        json_str = json_str[:size - 2]
+        # fecha com ']}'
+        json_str = json_str + ']}'
+
+        d = json.loads(json_str)
+
+        apagar_banco = False
+        if i == 0:
+            apagar_banco = True
+
+        print("  - Terminou leitura do json.")
+        tabela_processos = normaliza_processos(d)
+        print("  - Terminou normalizacao do json.")
+        carrega_base_processos(tabela_processos, engine, apagar_banco=apagar_banco)
+        print("  - Terminou gravacao dos dados processuais.")
+
+    cur.close()
+    con.close()
+
     print("Carga finalizada!")
 
 #In[]:
