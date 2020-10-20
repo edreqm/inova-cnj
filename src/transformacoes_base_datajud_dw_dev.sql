@@ -23,7 +23,7 @@ order by count(distinct nr_processo) desc
 04641376
 */
 
-
+drop MATERIALIZED VIEW if exists minerador_processos.mv_maiores_litigantes_arquivados;
 drop materialized view if exists minerador_processos.mv_maiores_litigantes;
 drop table if exists minerador_processos.tb_proc_maiores_litigantes;
 drop table if exists minerador_processos.tb_proc_parte_ml;
@@ -73,8 +73,6 @@ where substr(nr_doc_principal_pessoa, 1, 8) in (
 );
 */
 
--- índices
-create index idx_processo_1 on minerador_processos.tb_proc_maiores_litigantes.
 -- tabela de partes de processo de ML
 create table minerador_processos.tb_proc_parte_ml (
 	nr_processo varchar(20),
@@ -182,6 +180,7 @@ set ds_movimento = (
 	where codigo::text = cd_movimento_nacional) where 1 = 1;
 
 -- Índices 
+create index idx_proc_maiores_litigantes_1 on minerador_processos.tb_proc_maiores_litigantes(nr_chave_proc);
 create index idx_processo_1 on minerador_processos.tb_processo (nr_processo);
 create index idx_processo_2 on minerador_processos.tb_processo (dt_lancamento_movimento);
 create index idx_processo_3 on minerador_processos.tb_processo (cd_movimento_nacional);
@@ -239,7 +238,7 @@ AS
     parte_ml.nm_pessoa,
     parte_ml.nr_doc_principal_pessoa,
 	ultmo_mov.dt_arquivamento,
-	ultmo_mov.dt_arquivamento - proc_ml.dt_ajuizamento as dias_duracao_processo
+	DATE_PART('day', ultmo_mov.dt_arquivamento - proc_ml.dt_ajuizamento) as dias_duracao_processo
    FROM minerador_processos.tb_proc_movimentos_ml mov_ml
      JOIN minerador_processos.tb_proc_maiores_litigantes proc_ml ON mov_ml.nr_chave_proc::text = proc_ml.nr_chave_proc::text
      JOIN minerador_processos.tb_proc_parte_ml parte_ml ON mov_ml.nr_chave_proc::text = parte_ml.nr_chave_proc::text
