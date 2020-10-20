@@ -23,6 +23,97 @@ order by count(distinct nr_processo) desc
 04641376
 */
 
+
+-- Filtros para os movimentos relevantes
+create table minerador_processos.tb_filtro_movimentos(cd_movimento_nacional text, ds_movimento_complementos text);
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('26','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('36','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('123','Remessa em grau de recurso');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('132','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('196','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('198','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('200','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('207','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('219','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('220','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('221','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('235','Não Conhecimento de recurso Petição (outras)');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('237','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('238','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('239','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('240','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('241','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('242','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('245','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('246','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('247','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('265','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('272','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('276','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('332','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('335','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('348','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('377','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('378','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('431','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('434','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('454','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('455','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('457','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('458','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('459','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('460','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('461','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('462','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('463','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('464','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('465','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('466','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('471','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('472','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('473','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('785','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('785','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('804','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('848','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('871','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('889','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('898','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('941','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('944','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('970','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('972','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1013','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1059','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('10966','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11012','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11015','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11021','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11373','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11384','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11385','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11795','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11975','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('12068','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('12100','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('12164','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('12185','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('901','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('236','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('228','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('218','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('472','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('473','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('861','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('48','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('245','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('246','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('12430','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1013','');
+
+
+
+
 drop MATERIALIZED VIEW if exists minerador_processos.mv_maiores_litigantes_arquivados;
 drop materialized view if exists minerador_processos.mv_maiores_litigantes;
 drop table if exists minerador_processos.tb_proc_maiores_litigantes;
@@ -218,7 +309,8 @@ where 1 = 1;
 CREATE MATERIALIZED VIEW minerador_processos.mv_maiores_litigantes_arquivados
 TABLESPACE pg_default
 AS
- SELECT mov_ml.nr_chave_proc,
+SELECT distinct 
+    mov_ml.nr_chave_proc,
     mov_ml.nr_processo,
     mov_ml.cd_movimento_nacional,
     mov_ml.dt_lancamento_movimento,
@@ -250,7 +342,8 @@ AS
 		 	minerador_processos.tb_proc_movimentos_ml
 		 group by
 		 	nr_chave_proc
-	 ) ultmo_mov on mov_ml.nr_chave_proc = ultmo_mov.nr_chave_proc
+	 ) ultmo_mov on mov_ml.nr_chave_proc = ultmo_mov.nr_chave_proc,
+	 minerador_processos.tb_filtro_movimentos filtro
    where
 	 exists (
 		 select 1
@@ -258,6 +351,7 @@ AS
 		 where 
 		 mov_ml2.nr_chave_proc = mov_ml.nr_chave_proc
 		 and mov_ml2.cd_movimento_nacional in (
+			 -- Processos com movimento de arquivamento
 			'228',
 			'218',
 			'472',
@@ -267,5 +361,33 @@ AS
 			'245',
 			'246',
 			'12430',
-			'1013')
-	 );
+			'1013'
+		)
+	 ) and
+	 exists (
+		 select 1
+		 from minerador_processos.tb_proc_movimentos_ml mov_ml2
+		 where 
+		 mov_ml2.nr_chave_proc = mov_ml.nr_chave_proc
+		 and mov_ml2.cd_movimento_nacional in (
+			 -- Processos com julgamento
+			'219', 
+			'220', 
+			'221', 
+			'332', 
+			'466', 
+			'785', 
+			'889', 
+			'12164' 
+		)
+	 ) and (
+		 (
+			 filtro.cd_movimento_nacional = mov_ml.cd_movimento_nacional
+			 and filtro.ds_movimento_complementos = ''
+		 ) or (
+			 filtro.cd_movimento_nacional = mov_ml.cd_movimento_nacional
+			 and filtro.ds_movimento_complementos != ''
+			 and mov_ml.ds_movimento_complementos = filtro.ds_movimento_complementos
+		 )
+	 )
+	 ;
