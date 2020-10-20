@@ -82,11 +82,7 @@ def normaliza_processos(d):
     caminho_registro = ['processos','movimento','complementoNacional']
     meta_info = [['processos','dpj_identificadorProcesso'],
                 ['processos','movimento','dataHora'],
-                ['processos','movimento','movimentoNacional','codigoNacional'],
-                ['processos','movimento','orgaoJulgador','codigoOrgao'],
-                ['processos','movimento','orgaoJulgador','nomeOrgao'],
-                ['processos','movimento','orgaoJulgador','instancia'],
-                ['processos','movimento','orgaoJulgador','codigoMunicipioIBGE']
+                ['processos','movimento','movimentoNacional','codigoNacional']
                 ]
 
     '''meta_info = [['processos','dpj_identificadorProcesso'],
@@ -190,7 +186,7 @@ def carrega_base_processos(df, engine, apagar_banco):
 # In[69]:
 def run():
     #pasta_processos = "/home/lemos/trt3/Inova/teste/"
-    url_banco = 'postgresql://minerador_processos:<senha>@10.3.192.85:5448/dw_dev'
+    url_banco = 'postgresql://minerador_processos:5448minerador@10.3.192.85:5448/dw_dev'
 
 
     #engine = hive.Connection(host="", port=PORT, username="YOU")
@@ -204,49 +200,52 @@ def run():
     tamanho_lote = 1000
     # 400 é a quantidade de lotes (400k processos no total, sendo carregados 1000 por vez)
     quantidade_lotes = 400
+
+    with open("data-1603127659116.csv") as f:
+        f.readline()
+
+        for i, id_processo in enumerate(f.readlines()):
+            id_processo = id_processo.strip("\n")
+            id_processo = id_processo.replace('"', "")
     
-    for i in range(0,quantidade_lotes): # 400 é a quantidade de lotes (400k processos no total, sendo carregados 1000 por vez)
-        
-        str_lote = str(i + 1)
-        print("Lote " + str_lote)
+            print(id_processo)
 
-        # os replaces é para corrigir algumas inconsistências encontradas no json armazenado no banco (p.ex. uso de \\, orgaoJulgador nulo)        
-        str_replace = "replace(replace(data::text, '\\\"', ''''), 'orgaoJulgador\": null','orgaoJulgador\": {\"instancia\": null, \"nomeOrgao\": null, \"codigoOrgao\": null, \"codigoMunicipioIBGE\": null}')"
-        
-        s =f"""select 
-              {str_replace} || ',' 
-           from 
-              datajud.tb_processo_datajud  
+            # os replaces é para corrigir algumas inconsistências encontradas no json armazenado no banco (p.ex. uso de \\, orgaoJulgador nulo)        
+            str_replace = "replace(replace(data::text, '\\\"', ''''), 'orgaoJulgador\": null','orgaoJulgador\": {\"instancia\": null, \"nomeOrgao\": null, \"codigoOrgao\": null, \"codigoMunicipioIBGE\": null}')"
+            
+            s =f"""select 
+                {str_replace} || ',' 
+            from 
+                datajud.tb_processo_datajud  
 
-            where id_processo_datajud like ''
+                where id_processo_datajud = '{id_processo}'
+            """
 
-           limit {tamanho_lote} offset {i*tamanho_lote}"""
+            sqlSTR = "COPY ({0}) TO STDOUT".format(s)
 
-        sqlSTR = "COPY ({0}) TO STDOUT".format(s)
+            text_stream = StringIO()
+            cur.copy_expert(sqlSTR, text_stream)
 
-        text_stream = StringIO()
-        cur.copy_expert(sqlSTR, text_stream)
+            # inclui a tag de lista de processos
+            json_str = '{"processos": [' + text_stream.getvalue()
 
-        # inclui a tag de lista de processos
-        json_str = '{"processos": [' + text_stream.getvalue()
+            size = len(json_str)
+            # apaga vírgula e quebra de linha no final
+            json_str = json_str[:size - 2]
+            # fecha com ']}'
+            json_str = json_str + ']}'
 
-        size = len(json_str)
-        # apaga vírgula e quebra de linha no final
-        json_str = json_str[:size - 2]
-        # fecha com ']}'
-        json_str = json_str + ']}'
+            d = json.loads(json_str)
 
-        d = json.loads(json_str)
+            apagar_banco = False
+            if i == 0:
+                apagar_banco = True
 
-        apagar_banco = False
-        if i == 0:
-            apagar_banco = True
-
-        print("  - Terminou leitura do json.")
-        tabela_processos = normaliza_processos(d)
-        print("  - Terminou normalizacao do json.")
-        carrega_base_processos(tabela_processos, engine, apagar_banco=apagar_banco)
-        print("  - Terminou gravacao dos dados processuais.")
+            print("  - Terminou leitura do json.")
+            tabela_processos = normaliza_processos(d)
+            print("  - Terminou normalizacao do json.")
+            carrega_base_processos(tabela_processos, engine, apagar_banco=apagar_banco)
+            print("  - Terminou gravacao dos dados processuais.")
 
     cur.close()
     con.close()

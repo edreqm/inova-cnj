@@ -77,15 +77,12 @@ def normaliza_processos(d):
     df_movimento = df_movimento[colunas_movimento]
     df_movimento.count()
 
+    df = df.merge(df_movimento,on='processos.dpj_identificadorProcesso')
 
     caminho_registro = ['processos','movimento','complementoNacional']
     meta_info = [['processos','dpj_identificadorProcesso'],
                 ['processos','movimento','dataHora'],
-                ['processos','movimento','movimentoNacional','codigoNacional'],
-                ['processos','movimento','orgaoJulgador','codigoOrgao'],
-                ['processos','movimento','orgaoJulgador','nomeOrgao'],
-                ['processos','movimento','orgaoJulgador','instancia'],
-                ['processos','movimento','orgaoJulgador','codigoMunicipioIBGE']
+                ['processos','movimento','movimentoNacional','codigoNacional']
                 ]
 
     '''meta_info = [['processos','dpj_identificadorProcesso'],
@@ -107,12 +104,25 @@ def normaliza_processos(d):
     df_complemento.head()
 
 
-    df_complemento.groupby(['processos.dpj_identificadorProcesso','processos.movimento.dataHora','complemento.codComplemento']).agg('min').head()
+    df_complemento.groupby([
+        'processos.dpj_identificadorProcesso',
+        'processos.movimento.dataHora',
+        'processos.movimento.movimentoNacional.codigoNacional',
+        'complemento.codComplemento'
+        ]).agg('min').head()
 
 
     df_complemento.count()
 
-    df = df.merge(df_complemento,on='processos.dpj_identificadorProcesso')
+    #df = df.merge(df_complemento,on='processos.dpj_identificadorProcesso')
+
+    df = df.merge(df_complemento,how='left',on=[
+        'processos.dpj_identificadorProcesso',
+        'processos.movimento.dataHora',
+        'processos.movimento.movimentoNacional.codigoNacional'
+        ])
+
+
     df.count()
 
     caminho_registro = ['processos','dadosBasicos','assunto']
