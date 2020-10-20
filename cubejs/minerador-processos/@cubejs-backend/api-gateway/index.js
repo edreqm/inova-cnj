@@ -667,7 +667,7 @@ class ApiGateway {
      
       //this.saveToTmpFile(results[0].data);
 
-console.log(results[0].data);
+//console.log(results[0].data);
 
       if (props.queryType === 'multi') {
         res({
