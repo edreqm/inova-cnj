@@ -90,7 +90,7 @@ export class HeatMapComponent implements OnInit {
 
   mouseover(event, d) {
     let tooltip = d3.select("div#tooltip");
-    tooltip.html(d.categoria);
+    tooltip.html("Órgão julgador:<b>" + d.categoria + "</b>");
     /*tooltip
       .style("opacity", 1)
     */
@@ -98,7 +98,7 @@ export class HeatMapComponent implements OnInit {
 
   mousemove(event, d) {
     let tooltip = d3.select("div#tooltip")
-    tooltip.html(d.categoria);
+    tooltip.html("Órgão julgador:<b>" + d.categoria + "</b>");
     /*tooltip
       .html(d.categoria)
       .style("left", (event.clientX+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
@@ -108,7 +108,7 @@ export class HeatMapComponent implements OnInit {
 
   mouseleave (event, d) {
     let tooltip = d3.select("div#tooltip")
-    tooltip.html("");
+    tooltip.html("Selecione um ponto");
     /*tooltip
       .transition()
       .duration(200)
