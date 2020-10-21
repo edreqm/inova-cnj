@@ -1,10 +1,13 @@
-# Minerador de processos
 
-## Instalar visualizador
+# Instruções de Instalação / Uso
+
+## Analisador de conformidade e desempenho
+
+### Instalar visualizador
 
 `sudo npm install -g cubejs-cli`
 
-## Configurar dados de conexão com base do projeto
+### Configurar dados de conexão com base do projeto
 
 `cd cube-js/minerador-processos`
 
@@ -24,15 +27,15 @@ CUBEJS_WEB_SOCKETS=true
 
 CUBEJS_DB_TYPE=postgres
 
-## Instalar as dependências
+### Instalar as dependências
 
 `npm install`
 
-## Iniciar API do cubejs
+### Iniciar API do cubejs
 
 `npm run dev`
 
-## Instalar analisador de processos
+### Instalar analisador de processos
 
 `cd cubejs/frontend/minerador-processos/`
 
@@ -40,10 +43,25 @@ CUBEJS_DB_TYPE=postgres
 
 `npm install`
 
-## Iniciar o analisador de processos
+### Iniciar o analisador de processos
 
 `ng serve`
 
-## Avessar o analisador
+### Avessar o analisador
 
 http://localhost:4200
+
+## Backend - Carga e Mineração
+
+### Instalar ferramentas python
+
+Miniconda : ver https://docs.conda.io/projects/conda/en/latest/user-guide/install/
+Pandas : `pip install pandas`
+
+### Execução do carregador :
+
+Executar o script python carrega-processos.py
+
+### Executar o minerador
+
+Executar o script python MineraProcessos.py
