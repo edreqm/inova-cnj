@@ -1,0 +1,25 @@
+<div class = "page-header">
+  <h1>
+     Análise dos grandes litigantes
+  </h1>
+</div>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 justify-content-center">
+      <app-selecao-litigante [query]="nomesLitigantesQuery" (eventoLitiganteSelecionado)="filtraLitigante($event)"></app-selecao-litigante>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-5 align-items-center">
+      <app-heat-map chartType="singleValue" [query]="performanceLitiganteVaraQuery" [title]="litiganteSelecionado"></app-heat-map>
+    </div>
+  </div>
+  <div class="row">
+    <p class="text-justify">
+      Selecione um dos grandes litigantes para analisar o padrão de seus processos e desempenho nas diversas varas.
+      Os processos em cada vara são comparados com o processo base do litigante, considerando todas as varas.
+      Um score é associado ao processo na vara, indicando o quão próximo o processo na vara se aproxima do processo base do litigante (eixo y).
+      No eixo x é apresentado tempo médio de duração dos processos do litigante na vara.
+    </p>
+  </div>
+</div>

@@ -10,17 +10,23 @@ cube(`PerformanceVara`, {
       sql: `vl_fitness`,
       type: `avg`,
       drillMembers: []
+    },
+
+    tempo: {
+      sql: `nr_dias`,
+      type: `avg`,
+      drillMembers: []
     }
   },
   
   dimensions: {
     nomeDaVara: {
-      sql: `nm_orgao`,
+      sql: `cd_orgao`,
       type: `string`
     },
     
     nomeDoLitigante: {
-      sql: `nm_pessoa`,
+      sql: `nr_doc_principal_pessoa`,
       type: `string`
     }
   }
