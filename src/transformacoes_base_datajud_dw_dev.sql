@@ -26,10 +26,15 @@ order by count(distinct nr_processo) desc
 
 -- Filtros para os movimentos relevantes
 create table minerador_processos.tb_filtro_movimentos(cd_movimento_nacional text, ds_movimento_complementos text);
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('26','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('36','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('123','Remessa em grau de recurso');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('133','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('132','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('163','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('160','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('193','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('196','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('198','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('200','');
@@ -55,6 +60,7 @@ insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_mo
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('348','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('377','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('378','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('385','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('431','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('434','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('454','');
@@ -73,17 +79,20 @@ insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_mo
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('472','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('473','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('785','');
-insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('785','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('804','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('817','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('848','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('871','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('888','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('889','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('898','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('941','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('944','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('968','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('970','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('972','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1013','');
+insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1060','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1059','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('10966','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('11012','');
@@ -110,9 +119,6 @@ insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_mo
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('246','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('12430','');
 insert into minerador_processos.tb_filtro_movimentos(cd_movimento_nacional,ds_movimento_complementos) values('1013','');
-
-
-
 
 drop MATERIALIZED VIEW if exists minerador_processos.mv_maiores_litigantes_arquivados;
 drop materialized view if exists minerador_processos.mv_maiores_litigantes;
@@ -364,21 +370,31 @@ SELECT distinct
 			'1013'
 		)
 	 ) and
-	 exists (
+	 not exists (
 		 select 1
 		 from minerador_processos.tb_proc_movimentos_ml mov_ml2
 		 where 
 		 mov_ml2.nr_chave_proc = mov_ml.nr_chave_proc
 		 and mov_ml2.cd_movimento_nacional in (
-			 -- Processos com julgamento
-			'219', 
-			'220', 
-			'221', 
-			'332', 
-			'466', 
-			'785', 
-			'889', 
-			'12164' 
+			 -- Processos com movimentos que não devem ser incluídos nas análises
+			'218',
+			'228',
+			'454',
+			'455',
+			'456',
+			'457',
+			'458',
+			'459',
+			'460',
+			'461',
+			'462',
+			'463',
+			'464',
+			'465',
+			'471',
+			'472',
+			'473',
+			'11795'
 		)
 	 ) and (
 		 (
