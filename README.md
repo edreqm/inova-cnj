@@ -3,6 +3,10 @@
 
 ## Analisador de conformidade e desempenho
 
+### Acessar via Heroku : https://analise-grandes-litigantes.herokuapp.com/
+
+ou
+
 ### Instalar visualizador
 
 `sudo npm install -g cubejs-cli`
