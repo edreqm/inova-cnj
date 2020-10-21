@@ -21,12 +21,12 @@ cube(`PerformanceVara`, {
   
   dimensions: {
     nomeDaVara: {
-      sql: `nm_orgao`,
+      sql: `cd_orgao`,
       type: `string`
     },
     
     nomeDoLitigante: {
-      sql: `nm_pessoa`,
+      sql: `nr_doc_principal_pessoa`,
       type: `string`
     }
   }
