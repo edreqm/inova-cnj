@@ -10,6 +10,12 @@ cube(`PerformanceVara`, {
       sql: `vl_fitness`,
       type: `avg`,
       drillMembers: []
+    },
+
+    tempo: {
+      sql: `nr_dias`,
+      type: `avg`,
+      drillMembers: []
     }
   },
   

@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+      <app-selecao-litigante [query]="nomesLitigantesQuery" (eventoLitiganteSelecionado)="filtraLitigante($event)"></app-selecao-litigante>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-sm-4 align-items-center">
+      <app-heat-map chartType="singleValue" [query]="performanceLitiganteVaraQuery" [title]="litiganteSelecionado"></app-heat-map>
+    </div>
+  </div>
+</div>

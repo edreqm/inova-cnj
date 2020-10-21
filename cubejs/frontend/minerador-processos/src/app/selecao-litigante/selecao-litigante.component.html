@@ -1,0 +1,10 @@
+<form>
+    <label for="lit">Litigante</label>
+    <select #selectLit (change)="onSelectLitigante(selectLit.value)">
+      <option *ngFor="let ltgt of litigantes" [value]="ltgt.id">
+        {{ltgt.name}}
+      </option>
+    </select>
+</form>
+  
+  

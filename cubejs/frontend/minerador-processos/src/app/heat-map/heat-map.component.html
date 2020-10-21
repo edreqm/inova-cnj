@@ -1,0 +1,16 @@
+<div class="card">
+	<div class="card-body">
+		<h5 class="card-title">{{ title }}</h5>
+		<div class="card-text">
+			<div *ngIf="ready === false" class="d-flex justify-content-center text-dark">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">...</span>
+				</div>
+			</div>
+			<figure height="500" width="750" id="heat_map">
+                
+			</figure>
+			<!--<h1 *ngIf="ready && !showChart" height="300">{{ chartData }}</h1>-->
+		</div>
+	</div>
+</div>
