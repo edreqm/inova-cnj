@@ -18,6 +18,8 @@ export class SelecaoLitiganteComponent implements OnInit {
 
   public litigantes;
 
+  //private jQuery: any;
+
   commonSetup(resultSet) {
 
     this.litigantes = resultSet.chartPivot().map(element => ({
@@ -43,5 +45,8 @@ export class SelecaoLitiganteComponent implements OnInit {
 
     this.querySubject.next(this.query);
   }
+
+  ngAfterViewInit() {
+  } 
 
 }

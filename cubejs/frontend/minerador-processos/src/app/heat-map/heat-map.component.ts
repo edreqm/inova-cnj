@@ -31,9 +31,11 @@ export class HeatMapComponent implements OnInit {
 
   private svg;
   private margin = 50;
-  private width = 750 - (this.margin * 2);
-  private height = 500 - (this.margin * 2);
+  private width = 550 - (this.margin * 2);
+  private height = 350 - (this.margin * 2);
 
+  private tooltip;
+  
   private xLabel = 'Tempo de duração';
   private yLabel = 'Fitness do processo';
 
@@ -84,6 +86,34 @@ export class HeatMapComponent implements OnInit {
     .attr("height", this.height + (this.margin * 2))
     .append("g")
     .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
+  }
+
+  mouseover(event, d) {
+    let tooltip = d3.select("div#tooltip");
+    tooltip.html(d.categoria);
+    /*tooltip
+      .style("opacity", 1)
+    */
+  }
+
+  mousemove(event, d) {
+    let tooltip = d3.select("div#tooltip")
+    tooltip.html(d.categoria);
+    /*tooltip
+      .html(d.categoria)
+      .style("left", (event.clientX+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+      .style("top", (event.clientY) + "px")
+      */
+  }
+
+  mouseleave (event, d) {
+    let tooltip = d3.select("div#tooltip")
+    tooltip.html("");
+    /*tooltip
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+      */
   }
 
   drawHeatMap(data) {
@@ -144,16 +174,39 @@ export class HeatMapComponent implements OnInit {
       .style("text-anchor", "middle")
       .text(this.yLabel);    
 
+
+    // Tooltips
+    /*this.tooltip = d3.select("svg#grafico")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .attr("id", "tooltip")
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "1px")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      */
+
+
+
     // Add dots
     this.svg.append('g')
       .selectAll("dot")
       .data(data)
       .enter()
       .append("circle")
-        .attr("cx", function (d) { return x(d.x); } )
-        .attr("cy", function (d) { return y(d.y); } )
-        .attr("r", 3.5)
-        .style("fill", "#69b3a2")
+      .attr("cx", function (d) { 
+        return x(d.x); 
+      } )
+      .attr("cy", function (d) { 
+        return y(d.y); 
+      } )
+      .attr("r", 7.5)
+      .style("fill", "#69b3a2")
+      .on("mouseover", this.mouseover)
+      .on("mousemove", this.mousemove )
+      .on("mouseleave", this.mouseleave )
  
  }
 
