@@ -56,6 +56,7 @@ http://localhost:4200
 ### Instalar ferramentas python
 
 Miniconda : ver https://docs.conda.io/projects/conda/en/latest/user-guide/install/
+
 Pandas : `pip install pandas`
 
 ### Execução do carregador :
