@@ -1,0 +1,1 @@
+build_front: cd cubejs/frontend/minerador-processos/ && npm install -g @angular/cli && npm install && ng serve
