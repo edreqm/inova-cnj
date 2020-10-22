@@ -40,4 +40,4 @@ WORKDIR inova-cnj/cubejs/frontend/minerador-processos
 
 RUN npm install
 
-CMD ng serve
+CMD ng serve --port $PORT
