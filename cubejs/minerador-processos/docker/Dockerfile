@@ -45,10 +45,13 @@ ENV PATH /home/inovacnj/.nvm/versions/node/v14.4.0/bin:$PATH
 RUN  npm --version \ 
   && node --version
 
-RUN git clone https://github.com/edreqm/inova-cnj.git \
- && git checkout heroku-back
+RUN git clone https://github.com/edreqm/inova-cnj.git
 
-WORKDIR inova-cnj/cubejs/minerador-processos
+WORKDIR inova-cnj
+
+RUN git checkout heroku-back
+
+WORKDIR cubejs/minerador-processos
 
 #RUN npm install http-server
 
