@@ -1,0 +1,3 @@
+build:
+    docker:
+        build.docker.web: inova-cnj/cubejs/frontend/minerador-processos/docker/Dockerfile
