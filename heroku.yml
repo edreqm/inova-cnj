@@ -1,3 +1,5 @@
 build:
     docker:
-        build.docker.web: cubejs/frontend/minerador-processos/docker/Dockerfile
+        web: cubejs/frontend/minerador-processos/docker/Dockerfile
+run:
+    web: ./node_modules/http-server/bin/http-server  dist/minerador-processos -p $PORT
