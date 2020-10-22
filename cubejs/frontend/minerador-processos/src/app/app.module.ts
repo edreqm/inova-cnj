@@ -18,7 +18,7 @@ const cubejsOptions = /*{
   token:
     "2952749ef5df99ae7d33889219988c03414b66154dc17a2458d520bad9762150ce37cac356a738c4a4644442bb47c74855168aa023645fea366ca511ee86ca08",
   options: {
-    apiUrl: "/cubejs-api/v1"
+    apiUrl: "https://analise-litigantes-back.herokuapp.com/cubejs-api/v1"
   }
 };
 
