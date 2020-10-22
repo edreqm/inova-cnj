@@ -54,6 +54,12 @@ RUN git clone https://github.com/edreqm/inova-cnj.git
 
 WORKDIR inova-cnj/cubejs/frontend/minerador-processos
 
+RUN npm install http-server
+
 RUN npm install
 
-CMD ng serve --port $PORT --host 0.0.0.0 --disableHostCheck true --liveReload false
+RUN ng build
+
+CMD ./node_modules/http-server/bin/http-server  dist/minerador-processos -p 8080
+
+#CMD ng serve --port $PORT --host 0.0.0.0 --disableHostCheck true --liveReload false
