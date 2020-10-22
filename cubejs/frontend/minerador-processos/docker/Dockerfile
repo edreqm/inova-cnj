@@ -60,6 +60,6 @@ RUN npm install
 
 RUN ng build
 
-CMD ./node_modules/http-server/bin/http-server  dist/minerador-processos -p 8080
+CMD ./node_modules/http-server/bin/http-server  dist/minerador-processos -p $PORT
 
 #CMD ng serve --port $PORT --host 0.0.0.0 --disableHostCheck true --liveReload false
