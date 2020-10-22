@@ -3,7 +3,7 @@
 
 ## Analisador de conformidade e desempenho
 
-### Acessar via Heroku : https://analise-grandes-litigantes.herokuapp.com/
+### Acessar via Heroku : https://analise-litigantes-front.herokuapp.com
 
 ou
 
